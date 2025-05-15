@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId         Int         @id @default(autoincrement())
+  username       String
+  password       String
+  displayName    String
+  profilePicture String
+  joinDate       String
+  post           Post[]
+  savedPost      SavedPost[]
+}
+
+model Post {
+  postId    Int     @id @default(autoincrement())
+  image     String
+  title     String
+  tag       String
+  checkList Check[]
+  userId    Int
+  user      User    @relation(fields: [userId], references: [userId])
+}
+
+model Check {
+  checkId Int    @id @default(autoincrement())
+  brand   String
+  clothe  String
+  postId  Int
+  post    Post   @relation(fields: [postId], references: [postId])
+}
+
+model SavedPost {
+  savedPostId  String       @id //copied from Post "U{postId}P{userId}"
+  originalPost Int
+  image        String
+  title        String
+  tag          String
+  checkList    SavedCheck[]
+  userId       Int
+  user         User         @relation(fields: [userId], references: [userId])
+}
+
+model SavedCheck {
+  savedCheckId  String    @id //copied from Check C{checkId}U{userId}
+  originalCheck Int
+  brand         String
+  clothe        String
+  completed     Boolean   @default(false)
+  savedPostId   String
+  post          SavedPost @relation(fields: [savedPostId], references: [savedPostId])
+}
