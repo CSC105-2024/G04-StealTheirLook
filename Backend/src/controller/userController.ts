@@ -148,6 +148,39 @@ const getDisplayName = async (c: Context) => {
     }
 }
 
+const getJoinDate = async (c: Context) => {
+    try {
+        const body = await c.req.query("userId")
+        if(body == null) {
+            return c.json(
+                {
+                    success: false,
+                    data: null,
+                    msg: "Missing required fields",
+                },
+                400
+            );
+        }
+
+        const joinDate = await userModel.getJoinDate({body})
+        return c.json({
+            success: true,
+            data: joinDate,
+            msg: "got join Date",
+        });
+    }
+    catch (error) {
+        return c.json(
+            {
+                success: false,
+                data: null,
+                msg: `Internal Server Error : ${error}`,
+            },
+            500
+        )
+    }
+}
+
 const getUserPost = async (c: Context) => {
     try {
         const body = await c.req.query("userId")
@@ -281,5 +314,5 @@ const updateDisplayName = async (c: Context) => {
 }
 
 export { createUser,
-        getUsername, getUserProfilePicture, getDisplayName, getUserPost, getUserSavedPost,
+        getUsername, getUserProfilePicture, getDisplayName, getJoinDate, getUserPost, getUserSavedPost,
         updateProfilePicture, updateDisplayName};
