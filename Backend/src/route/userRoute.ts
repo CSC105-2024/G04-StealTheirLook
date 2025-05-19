@@ -7,6 +7,7 @@ userRouter.post('/createUser', userController.createUser)
 userRouter.get("/getUsername",userController.getUsername)
 userRouter.get("/getProfilePicture",userController.getUserProfilePicture)
 userRouter.get("/getDisplayName",userController.getDisplayName)
+userRouter.get('/getJoinDate', userController.getJoinDate)
 userRouter.get("/getPost",userController.getUserPost)
 userRouter.get("/getSavedPost",userController.getUserSavedPost)
 

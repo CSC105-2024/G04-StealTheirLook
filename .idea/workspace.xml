@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/src/pages/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/userController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/model/userModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/userModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,7 +46,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;frontendAPI&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/User/ReactProject/StealTheirLook/G04-StealTheirLook&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -73,7 +87,8 @@
       <updated>1747620996120</updated>
       <workItem from="1747620999161" duration="4100000" />
       <workItem from="1747629588046" duration="56000" />
-      <workItem from="1747629683814" duration="26000" />
+      <workItem from="1747629683814" duration="104000" />
+      <workItem from="1747629811029" duration="2826000" />
     </task>
     <servers />
   </component>
