@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Frontend/src/pages/API.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/userModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/userModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +82,7 @@
       <workItem from="1747620999161" duration="4100000" />
       <workItem from="1747629588046" duration="56000" />
       <workItem from="1747629683814" duration="104000" />
-      <workItem from="1747629811029" duration="2826000" />
+      <workItem from="1747629811029" duration="4108000" />
     </task>
     <servers />
   </component>

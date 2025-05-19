@@ -114,6 +114,9 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -162,6 +165,39 @@ exports.Prisma.SavedCheckScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  username: 'username',
+  password: 'password',
+  displayName: 'displayName',
+  profilePicture: 'profilePicture',
+  joinDate: 'joinDate'
+};
+
+exports.Prisma.PostOrderByRelevanceFieldEnum = {
+  image: 'image',
+  title: 'title',
+  tag: 'tag'
+};
+
+exports.Prisma.CheckOrderByRelevanceFieldEnum = {
+  brand: 'brand',
+  clothe: 'clothe'
+};
+
+exports.Prisma.SavedPostOrderByRelevanceFieldEnum = {
+  savedPostId: 'savedPostId',
+  image: 'image',
+  title: 'title',
+  tag: 'tag'
+};
+
+exports.Prisma.SavedCheckOrderByRelevanceFieldEnum = {
+  savedCheckId: 'savedCheckId',
+  brand: 'brand',
+  clothe: 'clothe',
+  savedPostId: 'savedPostId'
 };
 
 
