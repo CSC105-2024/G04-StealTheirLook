@@ -4,6 +4,7 @@ const postRouter = new Hono()
 
 postRouter.post('/createPost', postController.createPost)
 
+postRouter.patch('/getPosts', postController.getPosts)
 postRouter.get('/getPostImage', postController.getPostImage)
 postRouter.get('/getPostTitle', postController.getPostTitle)
 postRouter.get('/getPostTag', postController.getPostTag)

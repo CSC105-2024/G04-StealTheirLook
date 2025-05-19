@@ -25,6 +25,20 @@ const createPost = async(body: any) => {
     return post
 }
 
+const getPost = async(body: any) => {
+    if(body.tags.length == 0) {
+        const p = await db.post.findMany()
+        return p
+    }
+    const posts = await db.post.findMany({
+        where : {
+            tag: {in: body.tags}
+        }
+    })
+
+    return posts
+}
+
 const getPostImage = async(body: any) => {
     const image = await db.post.findFirst({
         where: {
@@ -107,6 +121,6 @@ const isSaved = async(body: any) => {
 }
 
 export { createPost,
-        getPostImage, getPostTitle, getPostTag, getPostChecklist,
+        getPost, getPostImage, getPostTitle, getPostTag, getPostChecklist,
         deletePost,
         isSaved}

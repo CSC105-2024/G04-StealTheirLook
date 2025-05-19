@@ -13,7 +13,9 @@ type deletePost = {
     postId: number,
 }
 
-
+type getPost = {
+    tags: string[],
+}
 
 const createPost = async (c: Context) => {
     try {
@@ -34,6 +36,39 @@ const createPost = async (c: Context) => {
             success: true,
             data: post,
             msg: "created post",
+        });
+    }
+    catch (error) {
+        return c.json(
+            {
+                success: false,
+                data: null,
+                msg: `Internal Server Error : ${error}`,
+            },
+            500
+        )
+    }
+}
+
+const getPosts = async(c: Context) => {
+    try {
+        const body = await c.req.json<getPost>()
+        if(!body.tags) {
+            return c.json(
+                {
+                    success: false,
+                    data: null,
+                    msg: "Missing required fields",
+                },
+                400
+            );
+        }
+
+        const posts = await postModel.getPost(body);
+        return c.json({
+            success: true,
+            data: posts,
+            msg: "got posts",
         });
     }
     catch (error) {
@@ -263,6 +298,6 @@ const findPost = async (c: Context) => {
 }
 
 export { createPost,
-        getPostImage, getPostTitle, getPostTag, getPostChecklist,
+        getPosts, getPostImage, getPostTitle, getPostTag, getPostChecklist,
         deletePost,
         findPost};
