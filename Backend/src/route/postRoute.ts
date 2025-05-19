@@ -11,4 +11,6 @@ postRouter.get('/getPostChecklist', postController.getPostChecklist)
 
 postRouter.delete('/deletePost', postController.deletePost)
 
+postRouter.get("/isSaved", postController.findPost)
+
 export { postRouter }

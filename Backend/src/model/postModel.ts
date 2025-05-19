@@ -95,6 +95,18 @@ const deletePost = async(body: any) => {
     return deletePost
 }
 
+const isSaved = async(body: any) => {
+    const findPost = await db.savedPost.findFirst({
+        where : {
+            userId: body.userId,
+            originalPost: body.postId,
+        }
+    })
+
+    return findPost
+}
+
 export { createPost,
         getPostImage, getPostTitle, getPostTag, getPostChecklist,
-        deletePost}
+        deletePost,
+        isSaved}

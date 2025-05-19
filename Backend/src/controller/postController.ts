@@ -13,6 +13,8 @@ type deletePost = {
     postId: number,
 }
 
+
+
 const createPost = async (c: Context) => {
     try {
         const body = await c.req.json<createPost>()
@@ -215,6 +217,52 @@ const deletePost = async (c: Context) => {
     }
 }
 
+const findPost = async (c: Context) => {
+    try {
+        const userId = await c.req.query("userId")
+        const postId = await c.req.query("postId")
+
+        if(userId == null || postId == null) {
+            return c.json(
+                {
+                    success: false,
+                    data: null,
+                    msg: "Missing required fields",
+                },
+                400
+            );
+        }
+
+        const findPost = await postModel.isSaved({
+            userId: Number(userId),
+            postId: Number(postId)
+        })
+        if(findPost) {
+            return c.json({
+                success: true,
+                data: true,
+                msg: "post is already saved",
+            });
+        }
+        return c.json({
+            success: true,
+            data: false,
+            msg: "post is not saved",
+        });
+    }
+    catch (error) {
+        return c.json(
+            {
+                success: false,
+                data: null,
+                msg: `Internal Server Error : ${error}`,
+            },
+            500
+        )
+    }
+}
+
 export { createPost,
         getPostImage, getPostTitle, getPostTag, getPostChecklist,
-        deletePost };
+        deletePost,
+        findPost};
