@@ -52,7 +52,8 @@ people will be able to share their outfits, allowing others to be able to have t
 ### :hammer_and_wrench: Tech Stack
 
 - Hono
-- MySQL 
+- MySQL
+- Prisma
 
 ### :electric_plug: API Endpoints
 ### User
