@@ -86,9 +86,6 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -139,39 +136,6 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  username: 'username',
-  password: 'password',
-  displayName: 'displayName',
-  profilePicture: 'profilePicture',
-  joinDate: 'joinDate'
-};
-
-exports.Prisma.PostOrderByRelevanceFieldEnum = {
-  image: 'image',
-  title: 'title',
-  tag: 'tag'
-};
-
-exports.Prisma.CheckOrderByRelevanceFieldEnum = {
-  brand: 'brand',
-  clothe: 'clothe'
-};
-
-exports.Prisma.SavedPostOrderByRelevanceFieldEnum = {
-  savedPostId: 'savedPostId',
-  image: 'image',
-  title: 'title',
-  tag: 'tag'
-};
-
-exports.Prisma.SavedCheckOrderByRelevanceFieldEnum = {
-  savedCheckId: 'savedCheckId',
-  brand: 'brand',
-  clothe: 'clothe',
-  savedPostId: 'savedPostId'
-};
-
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -218,17 +182,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
+  "activeProvider": "sqlite",
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mysql://user4:Luay0tT3pZUN@cshackathon.sit.kmutt.ac.th:3306/group4_prehack"
+        "value": "file:./dev.db"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n}\n\nmodel User {\n  userId         Int         @id @default(autoincrement())\n  username       String\n  password       String\n  displayName    String\n  profilePicture String\n  joinDate       String\n  post           Post[]\n  savedPost      SavedPost[]\n}\n\nmodel Post {\n  postId    Int     @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  checkList Check[]\n  userId    Int\n  user      User    @relation(fields: [userId], references: [userId])\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n  post    Post   @relation(fields: [postId], references: [postId])\n}\n\nmodel SavedPost {\n  savedPostId  String       @id //copied from Post \"U{postId}P{userId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  checkList    SavedCheck[]\n  userId       Int\n  user         User         @relation(fields: [userId], references: [userId])\n}\n\nmodel SavedCheck {\n  savedCheckId  String    @id //copied from Check C{checkId}U{userId}\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean   @default(false)\n  savedPostId   String\n  post          SavedPost @relation(fields: [savedPostId], references: [savedPostId])\n}\n",
-  "inlineSchemaHash": "dbc0618e339547dae352e012645065b56a9c2a8c02048e7b318435dde6a285d4",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\n// datasource db {\n//   provider          = \"mysql\"\n//   url               = env(\"DATABASE_URL\")\n//   shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n// }\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  userId         Int         @id @default(autoincrement())\n  username       String\n  password       String\n  displayName    String\n  profilePicture String\n  joinDate       String\n  post           Post[]\n  savedPost      SavedPost[]\n}\n\nmodel Post {\n  postId    Int     @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  checkList Check[]\n  userId    Int\n  user      User    @relation(fields: [userId], references: [userId])\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n  post    Post   @relation(fields: [postId], references: [postId])\n}\n\nmodel SavedPost {\n  savedPostId  String       @id //copied from Post \"U{postId}P{userId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  checkList    SavedCheck[]\n  userId       Int\n  user         User         @relation(fields: [userId], references: [userId])\n}\n\nmodel SavedCheck {\n  savedCheckId  String    @id //copied from Check C{checkId}U{userId}\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean   @default(false)\n  savedPostId   String\n  post          SavedPost @relation(fields: [savedPostId], references: [savedPostId])\n}\n",
+  "inlineSchemaHash": "01a3e3cde731e2ee5d6cc8ea3d25d358db1cf9dab0446fbeb3ae40d6e07124ca",
   "copyEngine": true
 }
 config.dirname = '/'
