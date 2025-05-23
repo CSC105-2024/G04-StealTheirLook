@@ -4,12 +4,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"; //import
 import NotFound from "./pages/NotFound.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import MyCollection from "./pages/MyCollection.jsx";
 import OutfitChecklist from "./pages/OutfitChecklist.jsx";
 import OutfitDetail from "./pages/OutfitDetail.jsx";
-import './index.css'
+import CreatePost from "./pages/CreatePost.jsx";
 import App from './App.jsx'
+import './index.css'
 
 const router = createBrowserRouter([
     {
@@ -17,8 +19,13 @@ const router = createBrowserRouter([
         element: <App/>,
         children: [
             {
-                path: '/',
+                path: '/Home',
                 element: <HomePage/>,
+            },
+
+            {
+                path: '/CreatePost',
+                element: <CreatePost/>,
             },
 
             {
@@ -51,6 +58,11 @@ const router = createBrowserRouter([
     {
         path: '/register',
         element: <Register />,
+    },
+
+    {
+        path: '/login',
+        element: <Login />,
     },
 
     {
