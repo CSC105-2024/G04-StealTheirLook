@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250519065221_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/migration_lock.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index-browser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/wasm.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/wasm.js" afterDir="false" />
-    </list>
+    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +83,7 @@
       <workItem from="1747721505100" duration="1705000" />
       <workItem from="1747787110634" duration="125000" />
       <workItem from="1747787779840" duration="44000" />
-      <workItem from="1747992046713" duration="915000" />
+      <workItem from="1747992046713" duration="3217000" />
     </task>
     <servers />
   </component>
