@@ -134,7 +134,7 @@ const MyCollection = () => {
                                             tag: post.tag,
                                             checkList: JSON.stringify(post.checkList ?? [])
                                         }).toString();
-                                        navigate(`/OutfitDetail/${post.postId}?${query}`);
+                                        navigate(`/OutfitChecklist/${post.postId}?${query}`);
                                     }}>
                                         <img src={post.image} alt="Post" className="w-full h-[300px] object-cover rounded mb-3" />
                                         <h3 className="text-lg font-bold mb-1">{post.title}</h3>

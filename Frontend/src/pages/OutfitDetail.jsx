@@ -11,7 +11,6 @@ const OutfitDetail = () => {
     const items = checkList ? JSON.parse(checkList) : [];
 
 
-
     if (!id) return <p>Invalid outfit ID</p>;
 
     return (
