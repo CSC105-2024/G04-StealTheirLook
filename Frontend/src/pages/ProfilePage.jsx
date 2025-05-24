@@ -56,7 +56,7 @@ const ProfilePage = () => {
                             type="text"
                             value={username}
                             onChange={(e) => setName(e.target.value)}
-                            className="font-bodoni text-[32px] mb-2 font-normal tracking-[0.5px]"
+                            className="font-bodoni text-[32px] mb-2  tracking-[0.5px]  w-full px-[15px] mt-6 py-[12px] border border-[#ddd] rounded  font-light font-montserrat transition duration-200 ease-in-out focus:border-black focus:shadow"
                         />
                     ) : (
                         <h1 className="font-bodoni text-[32px] mb-2 font-normal tracking-[0.5px]">{username}</h1>
