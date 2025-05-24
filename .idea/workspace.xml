@@ -5,31 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/query_engine-windows.dll.node.tmp16636" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/query_engine-windows.dll.node.tmp26448" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/src/pages/API.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514004324_initialize/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/migrations/20250523092523_schema/migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514014039_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514072622_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514095722_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514122421_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250514125209_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250515012025_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250515013558_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/userModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/userModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,28 +44,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Merging frontend&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Documents/GitHub/G04-StealTheirLook&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "frontend",
+    "last_opened_file_path": "C:/Users/user/Documents/GitHub/G04-StealTheirLook",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;PLAIN_TEXT&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -130,6 +107,7 @@
       <workItem from="1748059785787" duration="19622000" />
       <workItem from="1748087251083" duration="3825000" />
       <workItem from="1748091971918" duration="25000" />
+      <workItem from="1748092030275" duration="60000" />
     </task>
     <servers />
   </component>
