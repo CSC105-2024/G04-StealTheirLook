@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
     const [currentTag, setCurrentTag] = useState("");
     const [items, setItems] = useState([]);
-    const [itemForm, setItemForm] = useState({ id: "", name: "", brand: "" });
+    const [itemForm, setItemForm] = useState({name: "", brand: "" });
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState(""); // New: title state
     const navigate = useNavigate();
@@ -57,7 +57,8 @@ const CreatePost = () => {
         e.preventDefault();
         if (!itemForm.name || !itemForm.brand) return;
         setItems((prev) => [...prev, itemForm]);
-        setItemForm({ id: "", name: "", brand: "" });
+        console.log(itemForm);
+        setItemForm({name: "", brand: "" });
     };
 
     const removeItem = (id) => {
@@ -77,14 +78,20 @@ const CreatePost = () => {
             alert("Please provide a title, image, and tag.");
             return;
         }
+        console.log(file)
+        console.log(title)
+        console.log(currentTag)
+        console.log(items);
 
         const newPost = {
             image: file,
-            tag: currentTag,
             title: title,
+            tag: currentTag,
             items: items,
+            userId: 2,
             userEmail: currentUser.email // 🔑 Link post to user
         };
+        console.log(newPost);
 
         const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
         existingPosts.push(newPost);
@@ -95,7 +102,7 @@ const CreatePost = () => {
 
     return (
         <div>
-            <div className="max-w-[800px] mx-auto mt-[30px] mb-[40px] px-[20px] text-center">
+            <div className="max-w-[800px] mx-auto mt-6 mb-[40px] px-[20px] text-center">
                 <h1 className="font-[400] text-[36px] mb-[12px] tracking-[0.5px] font-bodoni">
                     Create a New Post
                 </h1>

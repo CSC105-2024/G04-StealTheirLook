@@ -6,19 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/App.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +37,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/CSC105-2024/G04-StealTheirLook.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/CSC105-2024/G04-StealTheirLook-PreHack-2025.git&quot;,
     &quot;accountId&quot;: &quot;e41ba471-014c-4923-ac52-3ab063349853&quot;
   }
 }</component>
@@ -69,8 +62,13 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\user\\Documents\\GitHub\\G04-StealTheirLook\\Backend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -99,6 +97,10 @@
       <workItem from="1747709005704" duration="10501000" />
       <workItem from="1747731605104" duration="6146000" />
       <workItem from="1747752212089" duration="8591000" />
+      <workItem from="1747990837089" duration="6110000" />
+      <workItem from="1747998497158" duration="6086000" />
+      <workItem from="1748020278720" duration="8599000" />
+      <workItem from="1748059785787" duration="316000" />
     </task>
     <servers />
   </component>

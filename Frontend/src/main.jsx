@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"; //import these modules
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import Register from "./pages/Register.jsx";
@@ -16,65 +16,50 @@ import './index.css'
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App/>,
+        element: <App />,
         children: [
             {
-                path: '/Home',
-                element: <HomePage/>,
+                path: '/',
+                element: <HomePage />,
             },
-
             {
                 path: '/CreatePost',
-                element: <CreatePost/>,
+                element: <CreatePost />,
             },
-
             {
                 path: '/MyCollection',
-                element: <MyCollection/>,
+                element: <MyCollection />,
             },
-
             {
-                path: '/OutfitChecklist',
-                element: <OutfitChecklist/>,
+                path: '/OutfitChecklist/:id',
+                element: <OutfitChecklist />,
             },
-
-            {
-                path: '/OutfitDetail',
-                element: <OutfitDetail/>,
-            },
-
-            {
-                path: '/profile',
-                element: <ProfilePage/>,
-            },
-
             {
                 path: '/OutfitDetail/:id',
-                element: <OutfitDetail/>,
-            }
+                element: <OutfitDetail />,
+            },
+            {
+                path: '/profile',
+                element: <ProfilePage />,
+            },
         ]
     },
-
     {
         path: '/register',
         element: <Register />,
     },
-
     {
         path: '/login',
         element: <Login />,
     },
-
     {
         path: '*',
         element: <NotFound />,
     },
-
 ]);
 
-
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-      <RouterProvider router={router} />
-  </StrictMode>,
-)
+    <StrictMode>
+        <RouterProvider router={router} />
+    </StrictMode>,
+);
