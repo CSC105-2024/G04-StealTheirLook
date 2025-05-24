@@ -27,9 +27,7 @@ function App() {
         <>
             <nav className="flex justify-center lg:justify-between items-center px-[5%] py-5 border-b border-[#eee] sticky top-0 bg-white z-[100] shadow-[0_2px_10px_rgba(0,0,0,0.03)] gap-10">
                 <div className="w-[content-max]">
-                    <NavLink to="/" className="font-serif text-2xl uppercase">
-                        Steal His Look
-                    </NavLink>
+                    <div className="font-serif text-2xl uppercase">steal his look</div>
                 </div>
 
                 <div className="flex flex-row items-center justify-between ml-[1em] lg:hidden">
@@ -47,7 +45,6 @@ function App() {
                                 isActive ? "text-lg font-bold" : ""
                             }`
                         }
-                        onClick={drop}
                     >
                         Home
                     </NavLink>
@@ -58,7 +55,6 @@ function App() {
                                 isActive ? "text-lg font-bold" : ""
                             }`
                         }
-                        onClick={drop}
                     >
                         My Collection
                     </NavLink>
@@ -69,7 +65,6 @@ function App() {
                                 isActive ? "text-lg font-bold" : ""
                             }`
                         }
-                        onClick={drop}
                     >
                         Create Post
                     </NavLink>

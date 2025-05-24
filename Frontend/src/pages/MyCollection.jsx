@@ -1,94 +1,70 @@
 import { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
-import OutfitDetail from "./OutfitDetail.jsx";
+import { useNavigate } from "react-router-dom";
 
 const MyCollection = () => {
     const [activeTab, setActiveTab] = useState("saved");
+
     const [myPosts, setMyPosts] = useState([
         {
-            "postId": 2,
-            "image": "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            "title": "Classic Denim Look",
-            "tag": "Casual",
-            "userId": 1,
-            "checkList": [
-                {
-                    "savedCheckId": "U1C4",
-                    "originalCheck": 4,
-                    "brand": "ehehe",
-                    "clothe": "ahaha",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                },
-                {
-                    "savedCheckId": "U1C5",
-                    "originalCheck": 5,
-                    "brand": "RRR",
-                    "clothe": "TTT",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                },
-                {
-                    "savedCheckId": "U1C6",
-                    "originalCheck": 6,
-                    "brand": "VVV",
-                    "clothe": "BBB",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                }
-            ]
+            postId: "U3P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Classic Denim Look",
+            tag: "Casual",
+            userId: 1,
         },
         {
-            "postId": 3,
-            "image": "img2",
-            "title": "G",
-            "tag": "F",
-            "userId": 1,
-            "checkList": [
-                {
-                    "savedCheckId": "U1C4",
-                    "originalCheck": 4,
-                    "brand": "ehehe",
-                    "clothe": "ahaha",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                },
-                {
-                    "savedCheckId": "U1C5",
-                    "originalCheck": 5,
-                    "brand": "RRR",
-                    "clothe": "TTT",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                },
-                {
-                    "savedCheckId": "U1C6",
-                    "originalCheck": 6,
-                    "brand": "VVV",
-                    "clothe": "BBB",
-                    "completed": false,
-                    "savedPostId": "U1P2"
-                }
-            ]
+            postId: "U4P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Streetwear Style",
+            tag: "Urban",
+            userId: 1,
         }
     ]);
 
+    const [savedPosts, setSavedPosts] = useState([
+        {
+            savedPostId: "U1P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Saved Denim Look",
+            tag: "Casual",
+            userId: 2,
+        },
+        {
+            savedPostId: "U2P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Evening Elegance",
+            tag: "Formal",
+            userId: 3,
+        }
+    ]);
 
     const navigate = useNavigate();
 
-    const getUsers = async () => {
-
-    }
-
-    useEffect(() => {
-        // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        // const allPosts = JSON.parse(localStorage.getItem("posts")) || [];
-        //
-        // if (currentUser) {
-        //     const userPosts = allPosts.filter(post => post.userEmail === currentUser.email);
-        //     setMyPosts(userPosts);
-        // }
-    }, []);
+    const renderPosts = (posts, isSaved = false) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+            {posts.map((post, index) => (
+                <div
+                    key={index}
+                    className="border rounded p-4 cursor-pointer"
+                    onClick={() => {
+                        if (isSaved) {
+                            navigate(`/OutfitChecklist/${post.savedPostId}`);
+                        } else {
+                            navigate(`/EditPage/${post.postId}`);
+                        }
+                    }}
+                >
+                    <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-[120px] object-cover rounded mb-3 lg:h-[300px]"
+                    />
+                    <h3 className="text-lg font-bold mb-1">{post.title}</h3>
+                    <p className="text-sm italic text-gray-600">{post.tag}</p>
+                </div>
+            ))}
+        </div>
+    );
 
     return (
         <div>
@@ -102,19 +78,20 @@ const MyCollection = () => {
             </div>
 
             <div className="max-w-[1200px] mx-auto mb-[40px] px-5">
+                {/* Tabs */}
                 <div className="flex justify-center border-b border-[#eee] gap-4">
                     <button
                         onClick={() => setActiveTab("saved")}
-                        className={`px-[30px] py-[14px] text-[14px] uppercase tracking-[1.5px] cursor-pointer relative ${
+                        className={`px-[30px] py-[14px] text-[14px] uppercase tracking-[1.5px] cursor-pointer ${
                             activeTab === "saved" ? "font-bold" : "font-normal"
                         }`}
                     >
-                        Saved outfits
+                        Saved Outfits
                     </button>
 
                     <button
                         onClick={() => setActiveTab("posts")}
-                        className={`px-[30px] py-[14px] text-[14px] uppercase tracking-[1.5px] cursor-pointer relative ${
+                        className={`px-[30px] py-[14px] text-[14px] uppercase tracking-[1.5px] cursor-pointer ${
                             activeTab === "posts" ? "font-bold" : "font-normal"
                         }`}
                     >
@@ -122,25 +99,10 @@ const MyCollection = () => {
                     </button>
                 </div>
 
-                {/* Show user posts */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-                        {myPosts.map((post, index) => (
-                            <div key={index} className="border rounded p-4" onClick={() => {
-                                const query = new URLSearchParams({
-                                    image: post.image,
-                                    title: post.title,
-                                    tag: post.tag,
-                                    checkList: JSON.stringify(post.checkList ?? [])
-                                }).toString();
-                                navigate(`/OutfitChecklist/${post.postId}?${query}`);
-                            }}>
-                                <img src={post.image} alt="Post" className="w-full h-[300px] object-cover rounded mb-3" />
-                                <h3 className="text-lg font-bold mb-1">{post.title}</h3>
-                                <p className="text-sm italic text-gray-600">{post.tag}</p>
-                                {/*make function get username and return it*/}
-                            </div>
-                        ))}
-                    </div>
+                {/* Content */}
+                {activeTab === "saved"
+                    ? renderPosts(savedPosts, true)
+                    : renderPosts(myPosts)}
             </div>
         </div>
     );

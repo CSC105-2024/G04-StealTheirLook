@@ -29,21 +29,8 @@ const Register = () => {
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // Check for duplicate
-        const userExists = users.some((user) => user.username === username);
-        if (userExists) {
-            alert("Username already exists.");
-            return;
-        }
-
         const newUser = { username, password };
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Registration successful! Please log in.");
-        navigate("/login");
+        navigate("/");
     };
 
     return (

@@ -23,19 +23,7 @@ const Login = () => {
     });
 
     const onSubmit = (data) => {
-        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-        const userMatch = storedUsers.find(
-            (user) => user.username === data.name && user.password === data.password
-        );
-
-        if (userMatch) {
-            localStorage.setItem("currentUser", JSON.stringify(userMatch));
-            setLoginError(""); // Clear any error
-            navigate("/");
-        } else {
-            setLoginError("Invalid username or password."); // 🔹 Set error
-        }
+        navigate("/");
     };
 
     return (

@@ -11,6 +11,7 @@ import OutfitChecklist from "./pages/OutfitChecklist.jsx";
 import OutfitDetail from "./pages/OutfitDetail.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import App from './App.jsx'
+import EditPage from "./pages/EditPage.jsx";
 import './index.css'
 
 const router = createBrowserRouter([
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
                 path: '/profile',
                 element: <ProfilePage />,
             },
+
+            {
+                path: '/EditPage/:id',
+                element: <EditPage />,
+            }
         ]
     },
     {
