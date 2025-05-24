@@ -25,7 +25,7 @@ function App() {
 
     return (
         <>
-            <nav className="flex justify-center items-center px-[5%] py-5 border-b border-[#eee] sticky top-0 bg-white z-[100] shadow-[0_2px_10px_rgba(0,0,0,0.03)] gap-10">
+            <nav className="flex justify-center lg:justify-between items-center px-[5%] py-5 border-b border-[#eee] sticky top-0 bg-white z-[100] shadow-[0_2px_10px_rgba(0,0,0,0.03)] gap-10">
                 <div className="w-[content-max]">
                     <NavLink to="/" className="font-serif text-2xl uppercase">
                         Steal His Look

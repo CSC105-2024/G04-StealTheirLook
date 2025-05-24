@@ -123,30 +123,24 @@ const MyCollection = () => {
                 </div>
 
                 {/* Show user posts */}
-                {activeTab === "posts" && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-                            {myPosts.length > 0 ? (
-                                myPosts.map((post, index) => (
-                                    <div key={index} className="border rounded p-4" onClick={() => {
-                                        const query = new URLSearchParams({
-                                            image: post.image,
-                                            title: post.title,
-                                            tag: post.tag,
-                                            checkList: JSON.stringify(post.checkList ?? [])
-                                        }).toString();
-                                        navigate(`/OutfitChecklist/${post.postId}?${query}`);
-                                    }}>
-                                        <img src={post.image} alt="Post" className="w-full h-[300px] object-cover rounded mb-3" />
-                                        <h3 className="text-lg font-bold mb-1">{post.title}</h3>
-                                        <p className="text-sm italic text-gray-600">{post.tag}</p>
-                                        {/*make function get username and return it*/}
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="text-center w-full text-gray-500">No posts yet.</p>
-                            )}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+                        {myPosts.map((post, index) => (
+                            <div key={index} className="border rounded p-4" onClick={() => {
+                                const query = new URLSearchParams({
+                                    image: post.image,
+                                    title: post.title,
+                                    tag: post.tag,
+                                    checkList: JSON.stringify(post.checkList ?? [])
+                                }).toString();
+                                navigate(`/OutfitChecklist/${post.postId}?${query}`);
+                            }}>
+                                <img src={post.image} alt="Post" className="w-full h-[300px] object-cover rounded mb-3" />
+                                <h3 className="text-lg font-bold mb-1">{post.title}</h3>
+                                <p className="text-sm italic text-gray-600">{post.tag}</p>
+                                {/*make function get username and return it*/}
+                            </div>
+                        ))}
                     </div>
-                )}
             </div>
         </div>
     );

@@ -39,12 +39,12 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="">
             <div className="flex justify-center items-center px-[5%] py-5 border-b border-[#eee] bg-white z-[100] shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
                 STEAL HIS LOOK
             </div>
 
-            <div className="float-left ml-11.5 mt-18 w-[300px] p-10 bg-white rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.1)] relative z-[10]">
+            <div className="float-left ml-11.5 mt-18 w-[300px] lg:ml-120 lg:w-[600px] p-10 bg-white rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.1)] relative z-[10]">
                 <div className="text-center mb-[35px]">
                     <h2 className="font-bodoni text-[20px] mb-[12px] tracking-[0.5px] font-normal">Welcome Back</h2>
                     <p className="text-[#555] text-[16px] font-cormorant italic tracking-[0.5px]">Sign in to continue to Steal His Look</p>
@@ -98,7 +98,7 @@ const Login = () => {
                 </form>
             </div>
 
-            <div className="border-y-3">
+            <div className="border-y-3 lg:border-y-6">
                 <div className="absolute h-[45em] blur-xs p-15 bg-[url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&h=900&q=80')] bg-center bg-cover relative"></div>
             </div>
         </div>

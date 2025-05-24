@@ -45,7 +45,6 @@ const OutfitDetail = () => {
                         />
                         <div className="flex flex-col">
                             <span className="font-medium text-[16px] tracking-[0.5px]">james_style</span>
-                            <span className="text-[12px] text-[#777] font-cormorant italic">Posted 3 days ago</span>
                         </div>
                     </div>
                     <h1 className="font-bodoni text-[32px] mb-[15px] leading-[1.2] font-normal tracking-[0.5px]"> {title} </h1>

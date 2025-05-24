@@ -25,7 +25,7 @@ const OutfitChecklist = () => {
 
     return (
         <div>
-            <div className="max-w-[1200px] mx-auto my-[10px] px-[20px] gap-[50px]">
+            <div className="lg:flex max-w-[1200px] mx-auto my-[10px] px-[20px] gap-[50px]">
                 <div className="w-full rounded-[8px] overflow-hidden">
                     <img src={image} alt={title} />
                 </div>
@@ -39,7 +39,6 @@ const OutfitChecklist = () => {
                         />
                         <div className="flex flex-col">
                             <span className="font-medium text-[16px] tracking-[0.5px]">james_style</span>
-                            <span className="text-[12px] text-[#777] font-cormorant italic">Posted 3 days ago</span>
                         </div>
                     </div>
 
