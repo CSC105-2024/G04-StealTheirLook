@@ -39,6 +39,41 @@ function App() {
                         <div className="w-10 h-[0.1em] my-1 bg-black" />
                     </div>
                 </div>
+                <div className="hidden lg:flex gap-5">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `uppercase my-[1em] text-sm hover:underline transition-all duration-200 ${
+                                isActive ? "text-lg font-bold" : ""
+                            }`
+                        }
+                        onClick={drop}
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        to="/MyCollection"
+                        className={({ isActive }) =>
+                            `uppercase my-[1em] text-sm hover:underline transition-all duration-200 ${
+                                isActive ? "text-lg font-bold" : ""
+                            }`
+                        }
+                        onClick={drop}
+                    >
+                        My Collection
+                    </NavLink>
+                    <NavLink
+                        to="/CreatePost"
+                        className={({ isActive }) =>
+                            `uppercase my-[1em] text-sm hover:underline transition-all duration-200 ${
+                                isActive ? "text-lg font-bold" : ""
+                            }`
+                        }
+                        onClick={drop}
+                    >
+                        Create Post
+                    </NavLink>
+                </div>
 
                 <div
                     id="dropDown"

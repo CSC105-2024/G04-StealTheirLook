@@ -24,11 +24,15 @@ const ProfilePage = () => {
         <div className="max-w-[800px] mx-auto p-[20px] bg-white rounded-[8px] shadow-[0_5px_30px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-[30px] mb-[40px]">
                 <div className="relative">
-                    <img
-                        src={profilePic}
-                        alt={name}
-                        className="w-[120px] h-[120px] rounded-full object-cover border-[5px] border-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] block"
-                    />
+                    {!isEditing ? (
+                        <img
+                            src={profilePic}
+                            alt={name}
+                            className="w-[120px] h-[120px] rounded-full object-cover border-[5px] border-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] block"
+                        />
+                    ): null
+                    }
+
                     {isEditing && (
                         <input
                             type="file"
