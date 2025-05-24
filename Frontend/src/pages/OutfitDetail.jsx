@@ -1,15 +1,32 @@
-import {useParams, useSearchParams} from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+
+const getInitialSavedPosts = () => {
+    const saved = localStorage.getItem("savedPosts");
+    return saved ? JSON.parse(saved) : [];
+};
 
 const OutfitDetail = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
+
+    const [savedPosts, setSavedPosts] = useState(getInitialSavedPosts);
+
+    const toggleSavePost = (postId) => {
+        setSavedPosts((prev) => {
+            const updated = prev.includes(postId)
+                ? prev.filter((pid) => pid !== postId)
+                : [...prev, postId];
+            localStorage.setItem("savedPosts", JSON.stringify(updated));
+            return updated;
+        });
+    };
 
     const image = searchParams.get("image");
     const tag = searchParams.get("tag");
     const title = searchParams.get("title");
     const checkList = searchParams.get("checkList");
     const items = checkList ? JSON.parse(checkList) : [];
-
 
     if (!id) return <p>Invalid outfit ID</p>;
 
@@ -24,12 +41,12 @@ const OutfitDetail = () => {
                         <img
                             className="w-[40px] h-[40px] rounded-full object-cover border-2 border-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
                             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
-                            alt="User Avatar"/>
+                            alt="User Avatar"
+                        />
                         <div className="flex flex-col">
                             <span className="font-medium text-[16px] tracking-[0.5px]">james_style</span>
                             <span className="text-[12px] text-[#777] font-cormorant italic">Posted 3 days ago</span>
                         </div>
-
                     </div>
                     <h1 className="font-bodoni text-[32px] mb-[15px] leading-[1.2] font-normal tracking-[0.5px]"> {title} </h1>
 
@@ -39,10 +56,20 @@ const OutfitDetail = () => {
 
                     <div className="flex gap-[15px] mb-[10px]">
                         <button
-                            className="bg-black text-white border-none px-[25px] py-[12px] rounded cursor-pointer text-[13px] uppercase tracking-[2px] transition-all duration-300 font-normal">Save
-                            to Collection
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                toggleSavePost(id);
+                            }}
+                            className={`border-none px-[25px] py-[12px] rounded cursor-pointer text-[13px] uppercase tracking-[2px] transition-all duration-300 font-normal ${
+                                savedPosts.includes(id)
+                                    ? "bg-red-500 text-white"
+                                    : "bg-black text-white"
+                            }`}
+                        >
+                            {savedPosts.includes(id) ? "Remove from Collection" : "Save to Collection"}
                         </button>
                     </div>
+
                     <div className="mt-5 border-t border-[#eee] pt-7.5">
                         <h2 className="font-bodoni text-2xl mb-5 font-normal">Items in this Look</h2>
                         {items.length > 0 ? (
