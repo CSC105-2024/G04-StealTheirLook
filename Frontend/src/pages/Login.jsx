@@ -39,7 +39,7 @@ const Login = () => {
             </div>
 
             {/* Login Card */}
-            <div className="relative z-10 bg-white rounded-lg shadow-xl px-15 mx-10 py-12 w-full max-w-md">
+            <div className="relative z-10 bg-white rounded-lg shadow-xl px-10 mx-10 py-12 w-full max-w-md">
                 <div className="text-center mb-8">
                     <h2 className="font-bodoni text-2xl mb-2 tracking-[0.5px] font-normal">Welcome Back</h2>
                     <p className="text-gray-600 text-base italic font-cormorant tracking-[0.5px]">
