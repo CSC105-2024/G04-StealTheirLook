@@ -109,6 +109,19 @@ const updateDisplayName = async(body: any) => {
     return name
 }
 
+const getJoinDate = async(body: any) => {
+    const joinDate = await db.user.findFirst({
+        where : {
+            userId : body.userId
+        },
+        select : {
+            joinDate : true
+        }
+    })
+
+    return joinDate
+}
+
 export { createUser,
-        getUsername, getUserProfilePicture, getDisplayName, getUserPost, getUserSavedPost,
+        getUsername, getUserProfilePicture, getDisplayName, getJoinDate, getUserPost, getUserSavedPost,
         updateProfilePicture, updateDisplayName}

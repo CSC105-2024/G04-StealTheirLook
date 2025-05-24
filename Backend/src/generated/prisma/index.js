@@ -156,7 +156,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\User\\ReactProject\\StealTheirLook\\src\\generated\\prisma",
+      "value": "C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -170,7 +170,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\User\\ReactProject\\StealTheirLook\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -192,8 +192,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  userId         Int         @id @default(autoincrement())\n  username       String\n  password       String\n  displayName    String\n  profilePicture String\n  joinDate       String\n  post           Post[]\n  savedPost      SavedPost[]\n}\n\nmodel Post {\n  postId    Int     @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  checkList Check[]\n  userId    Int\n  user      User    @relation(fields: [userId], references: [userId])\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n  post    Post   @relation(fields: [postId], references: [postId])\n}\n\nmodel SavedPost {\n  savedPostId  String       @id //copied from Post \"U{postId}P{userId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  checkList    SavedCheck[]\n  userId       Int\n  user         User         @relation(fields: [userId], references: [userId])\n}\n\nmodel SavedCheck {\n  savedCheckId  String    @id //copied from Check C{checkId}U{userId}\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean   @default(false)\n  savedPostId   String\n  post          SavedPost @relation(fields: [savedPostId], references: [savedPostId])\n}\n",
-  "inlineSchemaHash": "e9836e887df0a41553a72d86eb7635086cb38554515553f7f3f446e799f56d0c",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\n// datasource db {\n//   provider          = \"mysql\"\n//   url               = env(\"DATABASE_URL\")\n//   shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n// }\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  userId         Int         @id @default(autoincrement())\n  username       String\n  password       String\n  displayName    String\n  profilePicture String\n  joinDate       String\n  post           Post[]\n  savedPost      SavedPost[]\n}\n\nmodel Post {\n  postId    Int     @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  checkList Check[]\n  userId    Int\n  user      User    @relation(fields: [userId], references: [userId])\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n  post    Post   @relation(fields: [postId], references: [postId])\n}\n\nmodel SavedPost {\n  savedPostId  String       @id //copied from Post \"U{postId}P{userId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  checkList    SavedCheck[]\n  userId       Int\n  user         User         @relation(fields: [userId], references: [userId])\n}\n\nmodel SavedCheck {\n  savedCheckId  String    @id //copied from Check C{checkId}U{userId}\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean   @default(false)\n  savedPostId   String\n  post          SavedPost @relation(fields: [savedPostId], references: [savedPostId])\n}\n",
+  "inlineSchemaHash": "01a3e3cde731e2ee5d6cc8ea3d25d358db1cf9dab0446fbeb3ae40d6e07124ca",
   "copyEngine": true
 }
 
