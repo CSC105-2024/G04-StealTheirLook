@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/NotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/NotFound.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +101,7 @@
       <workItem from="1747998497158" duration="6086000" />
       <workItem from="1748020278720" duration="8599000" />
       <workItem from="1748059785787" duration="19622000" />
-      <workItem from="1748087251083" duration="2820000" />
+      <workItem from="1748087251083" duration="3825000" />
     </task>
     <servers />
   </component>
