@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="" />
+    <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,39 +23,54 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
+        <option value="TypeScript JSX File" />
+        <option value="JSX File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;quazer02&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CSC105-2024/G04-StealTheirLook-PreHack-2025.git&quot;,
+    &quot;accountId&quot;: &quot;e41ba471-014c-4923-ac52-3ab063349853&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2xIMAwZccLpnnU3s70kt9JPx4fi" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/ReactProject/StealTheirLook/G04-StealTheirLook&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;responsive&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Documents/GitHub/G04-StealTheirLook&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\node_modules\\typescript\\lib&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\user\\Documents\\GitHub\\G04-StealTheirLook\\Backend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
+    ]
   }
 }</component>
   <component name="ReactDesignerToolWindowState">
@@ -58,17 +83,18 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\User\ReactProject\StealTheirLook\G04-StealTheirLook" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\GitHub\G04-StealTheirLook\Frontend\src\pages" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.120" />
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="" />
@@ -76,14 +102,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747620996120</updated>
-      <workItem from="1747620999161" duration="4100000" />
-      <workItem from="1747629588046" duration="56000" />
-      <workItem from="1747629683814" duration="104000" />
-      <workItem from="1747629811029" duration="4108000" />
-      <workItem from="1747721505100" duration="1705000" />
-      <workItem from="1747787110634" duration="125000" />
-      <workItem from="1747787779840" duration="44000" />
-      <workItem from="1747992046713" duration="3217000" />
+      <workItem from="1747620999161" duration="3115000" />
+      <workItem from="1747629112894" duration="142000" />
+      <workItem from="1747629277708" duration="27538000" />
+      <workItem from="1747709005704" duration="10501000" />
+      <workItem from="1747731605104" duration="6146000" />
+      <workItem from="1747752212089" duration="8591000" />
+      <workItem from="1747990837089" duration="6110000" />
+      <workItem from="1747998497158" duration="6086000" />
+      <workItem from="1748020278720" duration="8599000" />
+      <workItem from="1748059785787" duration="19622000" />
+      <workItem from="1748087251083" duration="3825000" />
+      <workItem from="1748091971918" duration="25000" />
+      <workItem from="1748092030275" duration="60000" />
+      <workItem from="1748097414518" duration="4241000" />
     </task>
     <servers />
   </component>
