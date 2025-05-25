@@ -1,93 +1,160 @@
 import React, { useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const OutfitChecklist = () => {
     const { id } = useParams();
-    const [searchParams] = useSearchParams();
 
-    const image = searchParams.get("image");
-    const tag = searchParams.get("tag");
-    const title = searchParams.get("title");
-    const checkList = searchParams.get("checkList");
-    const [items, setItems] = useState(checkList ? JSON.parse(checkList) : []);
+    const [user] = useState({
+        username: "b1",
+    });
 
-    const toggleCheck = (index) => {
-        setItems((prev) =>
-            prev.map((item, i) =>
-                i === index ? { ...item, completed: !item.completed } : item
-            )
-        );
+    const [profile] = useState({
+        profilePicture:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    });
+
+    const [savedPosts, setSavedPosts] = useState([
+        {
+            savedPostId: "U1P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Denim Style",
+            tag: "Casual",
+            userId: 1,
+        },
+        {
+            savedPostId: "U2P2",
+            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            title: "Evening Elegance",
+            tag: "Formal",
+            userId: 3,
+        },
+    ]);
+
+    const [checklist, setChecklist] = useState([
+        {
+            savedCheckId: "U1C4",
+            brand: "ehehe",
+            clothe: "ahaha",
+            completed: false,
+            savedPostId: "U1P2",
+        },
+        {
+            savedCheckId: "U1C5",
+            brand: "RRR",
+            clothe: "TTT",
+            completed: false,
+            savedPostId: "U1P2",
+        },
+        {
+            savedCheckId: "U1C6",
+            brand: "VVV",
+            clothe: "BBB",
+            completed: false,
+            savedPostId: "U1P2",
+        },
+    ]);
+
+    const toggleSavePost = (postId) => {
+        setSavedPosts((prev) => {
+            const exists = prev.find((p) => p.savedPostId === postId);
+            return exists
+                ? prev.filter((p) => p.savedPostId !== postId)
+                : [
+                    ...prev,
+                    {
+                        savedPostId: postId,
+                        originalPost: 0,
+                        image: "https://via.placeholder.com/800x400",
+                        title: "New Saved Post",
+                        tag: "New",
+                        userId: 1,
+                    },
+                ];
+        });
     };
 
-    console.log(items);
+    const post = savedPosts.find((p) => p.savedPostId === id);
+    const checklistItems = checklist.filter((item) => item.savedPostId === id);
 
-    if (!id) return <p>Invalid outfit ID</p>;
+    if (!id || !post) return <p className="text-center text-gray-500 my-10">Invalid outfit ID</p>;
 
     return (
-        <div>
-            <div className="lg:flex max-w-[1200px] mx-auto my-[10px] px-[20px] gap-[50px]">
-                <div className="w-full rounded-[8px] overflow-hidden">
-                    <img src={image} alt={title} />
+        <div className="max-w-[1200px] mx-auto px-5 my-10 grid gap-12 grid-cols-1 lg:grid-cols-2">
+            <div className="w-full rounded-lg overflow-hidden">
+                <img src={post.image} alt={post.title} className="w-full h-auto object-cover rounded-lg" />
+            </div>
+
+            <div className="flex flex-col">
+                <div className="flex items-center gap-4 mb-6">
+                    <img
+                        className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
+                        src={profile.profilePicture}
+                        alt="User Avatar"
+                    />
+                    <div>
+                        <span className="font-medium text-base tracking-wide">{user.username}</span>
+                    </div>
                 </div>
 
-                <div className="flex flex-col">
-                    <div className="flex items-center mt-5 gap-[15px] mb-[30px]">
-                        <img
-                            className="w-[40px] h-[40px] rounded-full object-cover border-2 border-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
-                            alt="User Avatar"
-                        />
-                        <div className="flex flex-col">
-                            <span className="font-medium text-[16px] tracking-[0.5px]">james_style</span>
-                        </div>
-                    </div>
+                <h1 className="font-bodoni text-3xl font-normal tracking-wide mb-4">
+                    {post.title}
+                </h1>
 
-                    <h1 className="font-bodoni text-[32px] mb-[15px] leading-[1.2] font-normal tracking-[0.5px]">
-                        {title}
-                    </h1>
+                <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="text-sm px-3 py-1 bg-gray-100 rounded-full">{post.tag}</span>
+                </div>
 
-                    <div className="flex flex-wrap gap-[10px] mb-[30px]">
-                        <span>{tag}</span>
-                    </div>
+                <div className="mb-6">
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleSavePost(id);
+                        }}
+                        className={`px-6 py-3 rounded text-sm uppercase tracking-widest font-normal transition-all duration-300 ${
+                            savedPosts.find((p) => p.savedPostId === id)
+                                ? "bg-red-500 text-white"
+                                : "bg-black text-white"
+                        }`}
+                    >
+                        {savedPosts.find((p) => p.savedPostId === id)
+                            ? "Remove from Collection"
+                            : "Save to Collection"}
+                    </button>
+                </div>
 
-                    <div className="flex gap-[15px] mb-[10px]">
-                        <button className="bg-black text-white border-none px-[25px] py-[12px] rounded cursor-pointer text-[13px] uppercase tracking-[2px] transition-all duration-300 font-normal">
-                            Save to Collection
-                        </button>
-                    </div>
-
-                    <div className="mt-5 border-t border-[#eee] pt-7.5">
-                        <h2 className="font-bodoni text-2xl mb-5 font-normal">Items in this Look</h2>
-                        {items.length > 0 ? (
-                            <ul className="flex flex-col gap-5">
-                                {items.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className="flex items-start p-[15px] border border-[#eee] rounded-lg transition-transform duration-300 ease-in-out"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            id={`item-${index}`}
-                                            checked={item.completed}
-                                            onChange={() => toggleCheck(index)}
-                                            className="appearance-none mt-3.5 w-5 h-5 border border-[#ddd] rounded cursor-pointer relative checked:bg-black checked:border-black
-                                                after:content-['✓'] after:absolute after:text-white after:text-xs after:font-bold after:left-[5px] after:top-[0px]"
-                                        />
-                                        <label htmlFor={`item-${index}`} className="sr-only">
-                                            Check item
-                                        </label>
-
-                                        <div className="flex flex-col ml-5">
-                                            <div className="font-medium mb-[3px] text-[16px]">{item.brand}</div>
-                                            <div className="text-[#777] text-sm">{item.clothe}</div>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="text-center w-full text-gray-500">No CheckList.</p>
-                        )}
-                    </div>
+                <div className="border-t border-gray-200 pt-6">
+                    <h2 className="font-bodoni text-2xl font-normal mb-4">Items in this Look</h2>
+                    {checklistItems.length > 0 ? (
+                        <ul className="flex flex-col gap-4">
+                            {checklistItems.map((item, index) => (
+                                <li
+                                    key={index}
+                                    className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={item.completed}
+                                        onChange={() =>
+                                            setChecklist((prev) =>
+                                                prev.map((it) =>
+                                                    it.savedCheckId === item.savedCheckId
+                                                        ? { ...it, completed: !it.completed }
+                                                        : it
+                                                )
+                                            )
+                                        }
+                                        className="w-4 h-4 mt-3 accent-black"
+                                    />
+                                    <div>
+                                        <div className="font-medium text-base">{item.brand}</div>
+                                        <div className="text-gray-600 text-sm">{item.clothe}</div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-gray-500 text-sm">No CheckList.</p>
+                    )}
                 </div>
             </div>
         </div>

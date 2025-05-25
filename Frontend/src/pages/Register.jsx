@@ -29,21 +29,8 @@ const Register = () => {
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // Check for duplicate
-        const userExists = users.some((user) => user.username === username);
-        if (userExists) {
-            alert("Username already exists.");
-            return;
-        }
-
         const newUser = { username, password };
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Registration successful! Please log in.");
-        navigate("/login");
+        navigate("/");
     };
 
     return (
@@ -55,7 +42,7 @@ const Register = () => {
                 <h1 className="text-xl font-bold tracking-wide">STEAL HIS LOOK</h1>
             </div>
 
-            <div className="z-10 w-full max-w-md p-10 bg-white rounded-lg shadow-lg">
+            <div className="z-10 w-full mx-8 max-w-md p-10 bg-white rounded-lg shadow-lg">
                 <div className="text-center mb-6">
                     <h2 className="font-bodoni text-[20px] mb-[12px] tracking-[0.5px] font-normal">
                         Create Account

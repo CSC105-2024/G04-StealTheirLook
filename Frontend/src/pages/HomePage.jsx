@@ -135,7 +135,7 @@ const HomePage = () => {
                         <img
                             src={post.image}
                             alt="Post"
-                            className="w-full h-[150px] object-cover rounded mb-3"
+                            className="w-full h-[150px] object-cover rounded mb-3 lg:h-[250px]"
                         />
                         <h3 className="text-lg font-bold mb-1">{post.title}</h3>
                         <p className="text-sm italic text-gray-600">{post.tag}</p>
