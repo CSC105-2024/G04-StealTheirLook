@@ -4,10 +4,8 @@ import * as postModel from '../model/postModel.js'
 export const createPost = async (c: Context) => {
     try {
         const body = await c.req.json()
-        // Use the authenticated user ID from the auth middleware
         const userId = c.get('userId')
 
-        // Add userId to the request body
         const postData = { ...body, userId }
 
         const res = await postModel.createPost(postData)

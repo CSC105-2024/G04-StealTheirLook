@@ -14,7 +14,6 @@ export const editCheckBrand = async (c: Context) => {
             }, 400)
         }
 
-        // Verify the user owns the post containing this check
         const check = await checkModel.getCheckById(body.checkId)
         if (!check) {
             return c.json({
@@ -23,7 +22,6 @@ export const editCheckBrand = async (c: Context) => {
             }, 404)
         }
 
-        // Get the post to check ownership
         const post = await postModel.getPostById({ postId: check.postId })
         if (!post) {
             return c.json({
@@ -32,7 +30,6 @@ export const editCheckBrand = async (c: Context) => {
             }, 404)
         }
 
-        // Verify ownership
         if (post.userId !== userId) {
             return c.json({
                 success: false,

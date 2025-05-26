@@ -7,12 +7,18 @@ import { db } from '../index.js'
 
 export const authRoute = new Hono()
 
-const credSchema = z.object({
+const registerSchema = z.object({
     username: z.string().min(1),
     password: z.string().min(1),
 })
 
-authRoute.post('/register', zValidator('json', credSchema), async (c) => {
+const loginSchema = z.object({
+    username: z.string().min(1),
+    password: z.string().min(1),
+    rememberMe: z.boolean().optional().default(false),
+})
+
+authRoute.post('/register', zValidator('json', registerSchema), async (c) => {
     try {
         const { username, password } = await c.req.json()
         const hash = await bcrypt.hash(password, 12)
@@ -34,9 +40,9 @@ authRoute.post('/register', zValidator('json', credSchema), async (c) => {
     }
 })
 
-authRoute.post('/login', zValidator('json', credSchema), async (c) => {
+authRoute.post('/login', zValidator('json', loginSchema), async (c) => {
     try {
-        const { username, password } = await c.req.json()
+        const { username, password, rememberMe } = await c.req.json()
 
         const user = await db.user.findFirst({ where: { username } })
         if (!user) return c.json({ message: 'Bad credentials' }, 400)
@@ -47,10 +53,15 @@ authRoute.post('/login', zValidator('json', credSchema), async (c) => {
         const secret = process.env.JWT_SECRET
         if (!secret) throw new Error('JWT_SECRET missing!')
 
-        const token = jwt.sign({ id: user.userId }, secret, { expiresIn: '7d' })
+        // Set expiration time based on rememberMe
+        const expiresIn = rememberMe ? '30d' : '24h'
+        const token = jwt.sign({ id: user.userId }, secret, { expiresIn })
+
+        // Calculate cookie max age (in seconds)
+        const maxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24 // 30 days or 1 day
 
         // Set the token as a cookie
-        c.header('Set-Cookie', `auth_token=${token}; HttpOnly; Path=/; Max-Age=${60 * 60 * 24 * 7}; SameSite=Strict${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`)
+        c.header('Set-Cookie', `auth_token=${token}; HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Strict${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`)
 
         return c.json({
             user: {

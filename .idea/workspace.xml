@@ -6,41 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/checkController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/checkController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/postController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/postController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/savedCheckController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/savedCheckController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/savedPostController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/savedPostController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/middleware/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/middleware/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/checkModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/checkModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/postModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/postModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/savedCheckModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/savedCheckModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/savedPostModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/savedPostModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/model/userModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/userModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/route/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/checkRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/checkRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/indexRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/indexRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/postRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/postRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/savedCheckRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/savedCheckRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/savedPostRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/savedPostRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/route/userRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/API.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/EditPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/EditPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/HomePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/ProfilePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,29 +49,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;responsive2&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Documents/GitHub/G04-StealTheirLook&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Pam\\Documents\\GitHub\\G04-StealTheirLook-PreHack-2025\\Backend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "resposiveRemember",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/user/Documents/GitHub/G04-StealTheirLook",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\Pam\\Documents\\GitHub\\G04-StealTheirLook-PreHack-2025\\Backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;PLAIN_TEXT&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -149,6 +117,7 @@
       <workItem from="1748097414518" duration="4241000" />
       <workItem from="1748190179901" duration="1711000" />
       <workItem from="1748236635730" duration="411000" />
+      <workItem from="1748273743171" duration="965000" />
     </task>
     <servers />
   </component>

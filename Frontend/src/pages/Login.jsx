@@ -8,27 +8,42 @@ import { loginUser } from './API.js';
 const userSchema = z.object({
     username: z.string().min(1, 'Username is required'),
     password: z.string().min(1, 'Password is required'),
+    rememberMe: z.boolean().optional(),
 });
 
 const Login = () => {
     const navigate = useNavigate();
     const [loginError, setLoginError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(userSchema) });
+    } = useForm({
+        resolver: zodResolver(userSchema),
+        defaultValues: {
+            rememberMe: false
+        }
+    });
 
     const onSubmit = async (data) => {
         setLoginError('');
-        const { success, data: resData, error } = await loginUser(data);
+        setIsLoading(true);
 
-        if (success) {
-            // Using cookies so no need to store token in localStorage
-            navigate('/');
-        } else {
-            setLoginError(error);
+        try {
+            const { success, data: resData, error } = await loginUser(data);
+
+            if (success) {
+                navigate('/');
+            } else {
+                setLoginError(error);
+            }
+        } catch (err) {
+            setLoginError('An unexpected error occurred. Please try again.');
+            console.error(err);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -81,15 +96,28 @@ const Login = () => {
                         )}
                     </div>
 
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            {...register('rememberMe')}
+                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                        />
+                        <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-600">
+                            Remember me
+                        </label>
+                    </div>
+
                     {loginError && (
                         <p className="text-sm text-red-500 text-center">{loginError}</p>
                     )}
 
                     <button
                         type="submit"
-                        className="w-full py-3 bg-black text-white rounded uppercase tracking-wider hover:bg-gray-900 transition"
+                        disabled={isLoading}
+                        className="w-full py-3 bg-black text-white rounded uppercase tracking-wider hover:bg-gray-900 transition disabled:bg-gray-400"
                     >
-                        Login
+                        {isLoading ? 'Signing In...' : 'Login'}
                     </button>
 
                     <div className="text-center mt-6">
