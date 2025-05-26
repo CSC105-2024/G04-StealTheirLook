@@ -5,21 +5,15 @@ import { postRoute }      from './postRoute.js'
 import { checkRoute }     from './checkRoute.js'
 import { savedPostRouter } from './savedPostRoute.js'
 import { savedCheckRoute }from './savedCheckRoute.js'
-import { auth }           from '../middleware/auth.js'
 
 export const mainRouter = new Hono()
 
+// Public routes - don't require authentication
 mainRouter.route('/auth', authRoute)
 
-const protectedRouter = new Hono()
-
-protectedRouter.use('*', auth)
-
-protectedRouter.route('/user',      userRoute)
-protectedRouter.route('/post',      postRoute)
-protectedRouter.route('/check',     checkRoute)
-protectedRouter.route('/savedPost', savedPostRouter)
-protectedRouter.route('/savedCheck',savedCheckRoute)
-
-// mount the protected sub-app under "/"
-mainRouter.route('/', protectedRouter)
+// API routes - authentication is handled at the individual route level
+mainRouter.route('/user',       userRoute)
+mainRouter.route('/post',       postRoute)
+mainRouter.route('/check',      checkRoute)
+mainRouter.route('/savedPost',  savedPostRouter)
+mainRouter.route('/savedCheck', savedCheckRoute)

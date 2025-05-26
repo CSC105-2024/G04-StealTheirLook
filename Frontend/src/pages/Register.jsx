@@ -1,43 +1,43 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { registerUser } from './api'            // <── change path if needed
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { registerUser } from './API';
 
 const Register = () => {
     const [form, setForm] = useState({
         username: '',
         password: '',
         confirmPassword: '',
-    })
-    const [errorMsg, setErrorMsg] = useState('')
-    const navigate = useNavigate()
+    });
+    const [errorMsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { id, value } = e.target
-        setForm((prev) => ({ ...prev, [id]: value }))
-    }
+        const { id, value } = e.target;
+        setForm((prev) => ({ ...prev, [id]: value }));
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        setErrorMsg('')
+        e.preventDefault();
+        setErrorMsg('');
 
-        const { username, password, confirmPassword } = form
+        const { username, password, confirmPassword } = form;
         if (!username || !password || !confirmPassword) {
-            setErrorMsg('All fields are required.')
-            return
+            setErrorMsg('All fields are required.');
+            return;
         }
         if (password !== confirmPassword) {
-            setErrorMsg('Passwords do not match.')
-            return
+            setErrorMsg('Passwords do not match.');
+            return;
         }
 
-        const { success, error } = await registerUser({ username, password })
+        const { success, error } = await registerUser({ username, password });
         if (success) {
-            alert('Account created – please log in.')
-            navigate('/login')
+            alert('Account created – please log in.');
+            navigate('/login');
         } else {
-            setErrorMsg(error)
+            setErrorMsg(error);
         }
-    }
+    };
 
     return (
         <div className="relative min-h-screen flex items-center justify-center bg-gray-100">
@@ -130,7 +130,7 @@ const Register = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;

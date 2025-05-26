@@ -1,16 +1,20 @@
 import { Hono } from 'hono'
 import * as userController from '../controller/userController.js'
+import { auth } from '../middleware/auth.js'
 
 export const userRoute = new Hono()
 
-// READ-ONLY
-userRoute.get('/getUsername',        userController.getUsername)
-userRoute.get('/getProfilePicture',  userController.getUserProfilePicture)
-userRoute.get('/getDisplayName',     userController.getDisplayName)
-userRoute.get('/getJoinDate',        userController.getJoinDate)
-userRoute.get('/getPost',            userController.getUserPost)
-userRoute.get('/getSavedPost',       userController.getUserSavedPost)
+// Public READ-ONLY routes (no auth required)
+userRoute.get('/getUsername', userController.getUsername)
+userRoute.get('/getProfilePicture', userController.getUserProfilePicture)
+userRoute.get('/getDisplayName', userController.getDisplayName)
+userRoute.get('/getJoinDate', userController.getJoinDate)
 
-// MUTATIONS
-userRoute.patch('/updateProfilePicture', userController.updateProfilePicture)
-userRoute.patch('/updateDisplayName',    userController.updateDisplayName)
+// Protected routes (auth required)
+// For getting current user's posts and saved posts
+userRoute.get('/getPost', auth, userController.getUserPost)
+userRoute.get('/getSavedPost', auth, userController.getUserSavedPost)
+
+// Protected MUTATIONS (auth required)
+userRoute.patch('/updateProfilePicture', auth, userController.updateProfilePicture)
+userRoute.patch('/updateDisplayName', auth, userController.updateDisplayName)

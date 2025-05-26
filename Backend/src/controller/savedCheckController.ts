@@ -1,21 +1,52 @@
 import type { Context } from "hono";
 import * as savedCheckModel from "../model/savedCheckModel.js"
+import * as savedPostModel from "../model/savedPostModel.js"
 
-type updateCheck = {
-    savedCheckId: string
+type UpdateCheckBody = {
+    savedCheckId: string,
+    completed?: boolean
 }
 
 const updateCheck = async (c: Context) => {
     try {
-        const body = await c.req.json<updateCheck>()
-        if(body == null) {
+        const body = await c.req.json<UpdateCheckBody>()
+        const userId = c.get('userId')
+
+        if (!body.savedCheckId) {
             return c.json(
                 {
                     success: false,
-                    data: null,
-                    msg: "Missing required fields",
+                    error: "Missing saved check ID",
                 },
                 400
+            );
+        }
+
+        // Get the saved check to verify ownership
+        const savedCheck = await savedCheckModel.getSavedCheckById(body.savedCheckId)
+        if (!savedCheck) {
+            return c.json(
+                {
+                    success: false,
+                    error: "Saved check item not found",
+                },
+                404
+            );
+        }
+
+        // Verify the user owns the saved post containing this check
+        const isOwner = await savedPostModel.verifySavedPostOwner({
+            savedPostId: savedCheck.savedPostId,
+            userId
+        });
+
+        if (!isOwner) {
+            return c.json(
+                {
+                    success: false,
+                    error: "Unauthorized - you can only update your own saved items",
+                },
+                403
             );
         }
 
@@ -23,15 +54,15 @@ const updateCheck = async (c: Context) => {
         return c.json({
             success: true,
             data: updatedCheck,
-            msg: "updated saved check",
+            message: "Saved check updated successfully",
         });
     }
     catch (error) {
+        console.error("Error updating saved check:", error);
         return c.json(
             {
                 success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
+                error: "Failed to update saved check",
             },
             500
         )

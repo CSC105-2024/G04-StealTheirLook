@@ -1,40 +1,39 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { loginUser } from './API.js'         // <── change path if needed
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { loginUser } from './API.js';
 
 const userSchema = z.object({
     username: z.string().min(1, 'Username is required'),
     password: z.string().min(1, 'Password is required'),
-})
+});
 
 const Login = () => {
-    const navigate = useNavigate()
-    const [loginError, setLoginError] = useState('')
+    const navigate = useNavigate();
+    const [loginError, setLoginError] = useState('');
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(userSchema) })
+    } = useForm({ resolver: zodResolver(userSchema) });
 
     const onSubmit = async (data) => {
-        setLoginError('')
-        const { success, data: resData, error } = await loginUser(data)
+        setLoginError('');
+        const { success, data: resData, error } = await loginUser(data);
 
         if (success) {
-            localStorage.setItem('token', resData.token)
-            navigate('/') // or navigate('/dashboard') – wherever your home is
+            // Using cookies so no need to store token in localStorage
+            navigate('/');
         } else {
-            setLoginError(error)
+            setLoginError(error);
         }
-    }
+    };
 
     return (
         <div className="relative min-h-screen flex items-center justify-center bg-gray-100">
-            {/* Blurred background */}
             <div
                 className="absolute inset-0 bg-cover bg-center blur-sm z-0"
                 style={{
@@ -42,12 +41,10 @@ const Login = () => {
                         "url('https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1350&h=900&q=80')",
                 }}
             />
-            {/* Header */}
             <div className="absolute top-0 left-0 w-full bg-white shadow z-10 py-4 text-center font-bold tracking-wider text-xl">
                 STEAL HIS LOOK
             </div>
 
-            {/* Login card */}
             <div className="relative z-10 bg-white rounded-lg shadow-xl px-10 py-12 w-full max-w-md mx-10">
                 <div className="text-center mb-8">
                     <h2 className="font-bodoni text-2xl mb-2">Welcome Back</h2>
@@ -106,7 +103,7 @@ const Login = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
