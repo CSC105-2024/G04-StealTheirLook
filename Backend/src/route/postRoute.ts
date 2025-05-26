@@ -1,17 +1,13 @@
-import { Hono } from "hono"
-import * as postController from "../controller/postController.js"
-const postRouter = new Hono()
+import { Hono } from 'hono'
+import * as postController from '../controller/postController.js'
 
-postRouter.post('/createPost', postController.createPost)
+export const postRoute = new Hono()
 
-postRouter.patch('/getPosts', postController.getPosts)
-postRouter.get('/getPostImage', postController.getPostImage)
-postRouter.get('/getPostTitle', postController.getPostTitle)
-postRouter.get('/getPostTag', postController.getPostTag)
-postRouter.get('/getPostChecklist', postController.getPostChecklist)
-
-postRouter.delete('/deletePost', postController.deletePost)
-
-postRouter.get("/isSaved", postController.findPost)
-
-export { postRouter }
+postRoute.post ('/createPost',       postController.createPost)
+postRoute.patch('/getPosts',         postController.getPosts)
+postRoute.get  ('/getPostImage',     postController.getPostImage)
+postRoute.get  ('/getPostTitle',     postController.getPostTitle)
+postRoute.get  ('/getPostTag',       postController.getPostTag)
+postRoute.get  ('/getPostChecklist', postController.getPostChecklist)
+postRoute.delete('/deletePost',      postController.deletePost)
+postRoute.get  ('/isSaved',          postController.isSaved)

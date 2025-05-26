@@ -1,9 +1,7 @@
-import { Hono } from "hono"
-import * as checkController from "../controller/checkController.js"
+import { Hono } from 'hono'
+import * as checkController from '../controller/checkController.js'
 
-const checkRouter = new Hono()
+export const checkRoute = new Hono()
 
-checkRouter.patch('/editCheckBrand', checkController.editCheckBrand)
-checkRouter.patch('/editCheckClothe', checkController.editCheckClothe)
-
-export { checkRouter }
+checkRoute.patch('/editCheckBrand',  checkController.editCheckBrand)
+checkRoute.patch('/editCheckClothe', checkController.editCheckClothe)

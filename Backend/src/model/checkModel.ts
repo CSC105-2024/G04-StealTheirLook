@@ -1,51 +1,23 @@
-import { db } from "../index.js"
+import { db } from '../index.js'
 
-const editCheckBrand = async(body: any) => {
+export const editCheckBrand = async (body: { checkId: number; brand: string }) =>
+    db.check.updateMany({
+        where: { checkId: body.checkId },
+        data:  { brand: body.brand },
+    }).then(() =>
+        db.savedCheck.updateMany({
+            where: { originalCheck: body.checkId },
+            data:  { brand: body.brand },
+        })
+    )
 
-    const updateCheckBrand = await db.check.updateMany({
-        where : {
-            checkId: body.checkId
-        },
-        data : {
-            brand: body.brand
-        }
-    })
-
-    const updateSavedCheckBrand = await db.savedCheck.updateMany({
-        where : {
-            originalCheck: body.checkId
-        },
-        data : {
-            brand: body.brand
-        }
-    })
-
-    return updateCheckBrand
-
-}
-
-const editCheckClothe = async(body: any) => {
-
-    const updateCheckClothe = await db.check.updateMany({
-        where : {
-            checkId: body.checkId
-        },
-        data : {
-            clothe: body.clothe
-        }
-    })
-
-    const updateSavedCheckClothe = await db.savedCheck.updateMany({
-        where : {
-            originalCheck: body.checkId
-        },
-        data : {
-            clothe: body.clothe
-        }
-    })
-
-    return updateCheckClothe
-
-}
-
-export { editCheckBrand, editCheckClothe}
+export const editCheckClothe = async (body: { checkId: number; clothe: string }) =>
+    db.check.updateMany({
+        where: { checkId: body.checkId },
+        data:  { clothe: body.clothe },
+    }).then(() =>
+        db.savedCheck.updateMany({
+            where: { originalCheck: body.checkId },
+            data:  { clothe: body.clothe },
+        })
+    )

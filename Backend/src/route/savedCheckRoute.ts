@@ -1,8 +1,6 @@
-import { Hono } from "hono"
+import { Hono } from 'hono'
 import * as savedCheckController from '../controller/savedCheckController.js'
 
-const savedCheckRouter = new Hono()
+export const savedCheckRoute = new Hono()
 
-savedCheckRouter.patch('/updateCheck', savedCheckController.updateCheck)
-
-export { savedCheckRouter }
+savedCheckRoute.patch('/updateCheck', savedCheckController.updateCheck)

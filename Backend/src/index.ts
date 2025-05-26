@@ -3,24 +3,29 @@ import { Hono } from "hono";
 import { PrismaClient } from "./generated/prisma/index.js";
 import { mainRouter } from "./route/indexRoute.js";
 import { logger } from "hono/logger";
-
+import { cors } from "hono/cors";
+import "dotenv/config";
 const app = new Hono();
 export const db = new PrismaClient();
 
 app.use(logger());
-app.use('*', async (c, next) => {
-  // Set CORS headers manually for the response
-  c.res.headers.set('Access-Control-Allow-Origin', 'http://localhost:5173')
-  c.res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH')
-  c.res.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+app.use(
 
-  // If the request method is OPTIONS, respond with 200 (preflight request)
-  if (c.req.method === 'OPTIONS') {
-    return c.json({}, 200)
-  }
+    '*',
 
-  return next()
-})
+    cors({
+
+        origin: process.env.CLIENT_URL,          // http://localhost:5173
+
+        allowHeaders: ['Content-Type', 'Authorization'],
+
+        allowMethods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+
+        credentials: true,                       //  ←  ADD THIS
+
+    }),
+
+)
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");

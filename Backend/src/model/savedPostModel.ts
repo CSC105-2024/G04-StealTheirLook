@@ -1,106 +1,68 @@
-import { db } from "../index.js"
-import { getPostChecklist } from "./postModel.js";
+import { db } from '../index.js'
+import { getPostChecklist } from './postModel.js'
 
-const createSavedPost = async(body: any) => {
+export const createSavedPost = async (body: {
+    userId: number
+    postId: number
+    image: { image: string }
+    title: { title: string }
+    tag: { tag: string }
+}) => {
     const savedPost = await db.savedPost.create({
-        data : {
-            savedPostId : "U" + body.userId + "P" + body.postId,
+        data: {
+            savedPostId: `U${body.userId}P${body.postId}`,
             originalPost: body.postId,
             image: body.image.image,
             title: body.title.title,
             tag: body.tag.tag,
             userId: body.userId,
-        }
-    })
-
-    const savedPostId = savedPost.savedPostId
-
-    const checklist = await getPostChecklist(body.postId)
-
-    // @ts-ignore
-    for(const ele of checklist) {
-        const check = await db.savedCheck.create({
-            data : {
-                savedCheckId : "U" + body.userId + "C" + ele.checkId,
-                originalCheck: ele.checkId,
-                brand: ele.brand,
-                clothe: ele.clothe,
-                savedPostId: savedPostId,
-            }
-        })
-    }
-
-    return savedPostId
-}
-
-const getSavedPostImage = async(body: any) => {
-    const image = await db.savedPost.findFirst({
-        where: {
-            savedPostId: body.savedPostId,
         },
-        select: {
-            image: true
-        }
     })
 
-    return image
+    const checklist = await getPostChecklist({ postId: body.postId })
+
+    await Promise.all(
+        checklist.map((c) =>
+            db.savedCheck.create({
+                data: {
+                    savedCheckId: `U${body.userId}C${c.checkId}`,
+                    originalCheck: c.checkId,
+                    brand: c.brand,
+                    clothe: c.clothe,
+                    savedPostId: savedPost.savedPostId,
+                },
+            })
+        )
+    )
+
+    return savedPost.savedPostId
 }
 
-const getSavedPostTitle = async(body: any) => {
-    const title = await db.savedPost.findFirst({
-        where: {
-            savedPostId: body.savedPostId,
-        },
-        select: {
-            title: true
-        }
+export const getSavedPostImage = (body: { savedPostId: string }) =>
+    db.savedPost.findUnique({
+        where: { savedPostId: body.savedPostId },
+        select: { image: true },
     })
 
-    return title
+export const getSavedPostTitle = (body: { savedPostId: string }) =>
+    db.savedPost.findUnique({
+        where: { savedPostId: body.savedPostId },
+        select: { title: true },
+    })
+
+export const getSavedPostTag = (body: { savedPostId: string }) =>
+    db.savedPost.findUnique({
+        where: { savedPostId: body.savedPostId },
+        select: { tag: true },
+    })
+
+export const getSavedPostChecklist = (body: { savedPostId: string }) =>
+    db.savedPost.findUnique({
+        where: { savedPostId: body.savedPostId },
+        select: { checkList: true },
+    })
+
+export const deleteSavedPost = async (body: { savedPostId: string }) => {
+    await db.savedCheck.deleteMany({ where: { savedPostId: body.savedPostId } })
+    return db.savedPost.delete({ where: { savedPostId: body.savedPostId } })
 }
-
-const getSavedPostTag = async(body: any) => {
-    const tag = await db.savedPost.findFirst({
-        where: {
-            savedPostId: body.savedPostId,
-        },
-        select: {
-            tag: true
-        }
-    })
-
-    return tag
-}
-
-const getSavedPostChecklist = async(body: any) => {
-    const checklist = await db.savedPost.findFirst({
-        where: {
-            savedPostId: body.savedPostId,
-        },
-        select: {
-            checkList: true
-        }
-    })
-
-    return checklist
-}
-
-const deleteSavedPost = async(body: any) => {
-    const deleteSavedCheck = await db.savedCheck.deleteMany({
-        where : {
-            savedPostId: body.savedPostId,
-        }
-    })
-
-    const deleteSavedPost = await db.savedPost.delete({
-        where : {
-            savedPostId: body.savedPostId,
-        }
-    })
-
-    return deleteSavedPost
-}
-
-export { createSavedPost,
-        getSavedPostTitle, getSavedPostImage, getSavedPostTag, getSavedPostChecklist,
-        deleteSavedPost }

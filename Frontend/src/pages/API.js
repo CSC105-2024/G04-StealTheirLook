@@ -1,289 +1,111 @@
-import axios from "axios";
+// src/api.js
+import axios from 'axios'
 
-const user = axios.create({
-    baseURL: "http://localhost:8000/user",
-    withCredentials: true,
+/* ------------------------------------------------------------------ */
+/* 1. Axios instance with automatic JWT & basic error-wrapper          */
+/* ------------------------------------------------------------------ */
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8000',
+    withCredentials: true,               // keeps you compatible if you later switch to cookies
 })
 
-const post = axios.create({
-    baseURL: "http://localhost:8000/post",
-    withCredentials: true,
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config
 })
 
-const check =  axios.create({
-    baseURL: "http://localhost:8000/check",
-    withCredentials: true,
-})
+/* Optional:   central response / error logging
+api.interceptors.response.use(
+  (r) => r,
+  (err) => {
+    console.error(err?.response?.data ?? err)
+    return Promise.reject(err)
+  }
+)
+*/
 
-const savedPost = axios.create({
-    baseURL: "http://localhost:8000/savedPost",
-    withCredentials: true,
-})
-
-const savedCheck = axios.create({
-    baseURL: "http://localhost:8000/savedCheck",
-    withCredentials: true,
-})
-
-// User APIs
-export const createUser = async(body) => {
+/* Helper to unwrap `data` or map error into a uniform object */
+const handle = async (promise) => {
     try {
-        const res = await user.post('/createUser', body)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
+        const res = await promise
+        return { success: true, data: res.data }
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            error: error?.response?.data?.message ?? error.message,
+        }
     }
 }
 
-export const getUsername = async(body) => {
-    try {
-        const res = await user.get(`/getUsername?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 2. AUTH                                                             */
+/* ------------------------------------------------------------------ */
+export const registerUser = (body) => handle(api.post('/auth/register', body))
+export const loginUser    = (body) => handle(api.post('/auth/login', body))
+export const getMe        = ()     => handle(api.get('/auth/me'))
 
-export const getProfilePicture = async(body) => {
-    try {
-        const res = await user.get(`/getProfilePicture?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* --- keep old name for backwards-compatibility -------------------- */
+export const createUser = registerUser   // alias
 
-export const getDisplayName = async(body) => {
-    try {
-        const res = await user.get(`/getDisplayName?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 3. USER ROUTE (protected)                                           */
+/* ------------------------------------------------------------------ */
+export const getUsername        = (userId)              =>
+    handle(api.get('/user/getUsername',        { params: { userId } }))
 
-export const getJoinDate = async(body) => {
-    try {
-        const res = await user.get(`/getJoinDate?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const getProfilePicture  = (userId)              =>
+    handle(api.get('/user/getProfilePicture',  { params: { userId } }))
 
-export const getUserPost =  async(body) => {
-    try {
-        const res = await user.get(`/getPost?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const getDisplayName     = (userId)              =>
+    handle(api.get('/user/getDisplayName',     { params: { userId } }))
 
-export const getSavedPost = async(body) => {
-    try {
-        const res = await user.get(`/getSavedPost?userId=${body.userId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const getJoinDate        = (userId)              =>
+    handle(api.get('/user/getJoinDate',        { params: { userId } }))
 
-export const updateProfilePicture = async(body) => {
-    try {
-        const res = await user.patch('/updateProfilePicture', body)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const getUserPost        = (userId)              =>
+    handle(api.get('/user/getPost',            { params: { userId } }))
 
-export const updateDisplayName = async(body) => {
-    try {
-        const res = await user.patch('/updateDisplayName', body)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const getSavedPost       = (userId)              =>
+    handle(api.get('/user/getSavedPost',       { params: { userId } }))
 
-// Post API
-export const createPost = async(body) => {
-    try {
-        const res = await post.post('/createPost', body)
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const updateProfilePicture = (body) => handle(api.patch('/user/updateProfilePicture', body))
+export const updateDisplayName    = (body) => handle(api.patch('/user/updateDisplayName',  body))
 
-export const getPost = async(body) => {
-    try {
-        const res = await post.patch('/getPosts', body)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 4. POST ROUTE (protected)                                           */
+/* ------------------------------------------------------------------ */
+export const createPost         = (body)      => handle(api.post('/post/createPost',  body))
+export const getPost            = (body)      => handle(api.patch('/post/getPosts',   body))
+export const getPostImage       = (postId)    => handle(api.get('/post/getPostImage',   { params: { postId } }))
+export const getPostTitle       = (postId)    => handle(api.get('/post/getPostTitle',   { params: { postId } }))
+export const getPostTag         = (postId)    => handle(api.get('/post/getPostTag',     { params: { postId } }))
+export const getPostChecklist   = (postId)    => handle(api.get('/post/postCheckList',  { params: { postId } }))
+export const deletePost         = (body)      => handle(api.delete('/post/deletePost',  { data: body }))
+export const isSaved            = (userId,postId) =>
+    handle(api.get('/post/isSaved', { params: { userId, postId } }))
 
-export const getPostImage = async(body) => {
-    try {
-        const res = await post.get(`/getPostImage?postId=${body.postId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 5. SAVED-POST ROUTE (protected)                                     */
+/* ------------------------------------------------------------------ */
+export const createSavedPost        = (body)           => handle(api.post   ('/savedPost/createSavedPost',  body))
+export const getSavedPostImage      = (savedPostId)    => handle(api.get    ('/savedPost/getSavedPostImage',     { params: { savedPostId } }))
+export const getSavedPostTitle      = (savedPostId)    => handle(api.get    ('/savedPost/getSavedPostTitle',     { params: { savedPostId } }))
+export const getSavedPostTag        = (savedPostId)    => handle(api.get    ('/savedPost/getSavedPostTag',       { params: { savedPostId } }))
+export const getSavedPostChecklist  = (savedPostId)    => handle(api.get    ('/savedPost/getSavedPostChecklist', { params: { savedPostId } }))
+export const deleteSavedPost        = (body)           => handle(api.delete ('/savedPost/deleteSavedPost',       { data: body }))
 
-export const getPostTitle = async(body) => {
-    try {
-        const res = await post.get(`/getPostTitle?postId=${body.postId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 6. SAVED-CHECK ROUTE (protected)                                    */
+/* ------------------------------------------------------------------ */
+export const updateCheck = (body) => handle(api.patch('/savedCheck/updateCheck', body))
 
-export const getPostTag = async(body) => {
-    try {
-        const res = await post.get(`/getPostTag?postId=${body.postId}`)
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+/* ------------------------------------------------------------------ */
+/* 7. CHECK ROUTE (protected)                                          */
 
-export const getPostChecklist = async(body) => {
-    try {
-        const res = await post.get(`/postCheckList?postId=${body.postId}`)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export const editCheckBrand  = (body) => handle(api.patch('/check/editCheckBrand',  body))
+export const editCheckClothe = (body) => handle(api.patch('/check/editCheckClothe', body))
 
-export const deletePost = async(body) => {
-    try {
-        const res = await post.delete('/deletePost', body)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
 
-export const isSaved = async(body) => {
-    try {
-        const res = await post.get(`/isSaved?userId=${body.userId}&postId=${body.postId}`)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-//savedPost API
-export const createSavedPost = async(body) => {
-    try {
-        const res =  await savedPost.post('/createSavedPost', body)
-        return res.data;
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const getSavedPostImage = async(body) => {
-    try {
-        const res = await savedPost.get(`/getSavedPostImage?savedPostId=${body.savedPostId}`)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const getSavedPostTitle = async(body) => {
-    try {
-        const res = await savedPost.get(`/getSavedPostTitle?savedPostId=${body.savedPostId}`)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const getSavedPostTag = async(body) => {
-    try {
-        const res = await savedPost.get(`/getSavedPostTag?savedPostId=${body.savedPostId}`)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const getSavedPostChecklist = async(body) => {
-    try {
-        const res = await savedPost.get(`/getSavedPostChecklist?savedPostId=${body.savedPostId}`)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const deleteSavedPost = async(body) => {
-    try {
-        const res = await savedPost.delete('/deleteSavedPost', body)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-// savedCheck API
-export const updateCheck = async(body) => {
-    try {
-        const res = await savedCheck.patch('/updateCheck', body)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-// check API
-export const editCheckBrand = async(body) => {
-    try {
-        const res = await check.patch('/editCheckBrand', body)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
-
-export const editCheckClothe = async(body) => {
-    try {
-        const res = await check.patch('/editCheckClothe', body)
-        return res.data
-    }
-    catch (error) {
-        return { success: false, data: [], error: error };
-    }
-}
+export default api

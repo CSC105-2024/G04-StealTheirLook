@@ -1,29 +1,13 @@
-import { db } from "../index.js"
+import { db } from '../index.js'
 
-const updateCheck = async(body: any) => {
-
-    const prevState = await db.savedCheck.findFirst({
-        where: {
-            savedCheckId : body.savedCheckId
-        },
-        select: {
-            completed : true
-        }
+export const updateCheck = async (body: { savedCheckId: string }) => {
+    const prev = await db.savedCheck.findUnique({
+        where: { savedCheckId: body.savedCheckId },
+        select: { completed: true },
     })
 
-    const checked = await db.savedCheck.update({
-        where : {
-            savedCheckId : body.savedCheckId
-        },
-        data : {
-            completed : {
-                // @ts-ignore
-                set : !prevState.completed
-            }
-        }
+    return db.savedCheck.update({
+        where: { savedCheckId: body.savedCheckId },
+        data:  { completed: { set: !prev?.completed } },
     })
-
-    return checked;
 }
-
-export { updateCheck, }
