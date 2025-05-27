@@ -1,5 +1,5 @@
 import type { Context } from 'hono'
-import * as postModel from '../model/postModel.js' // This import is correct and necessary
+import * as postModel from '../model/postModel.js'
 
 export const createPost = async (c: Context) => {
     try {
@@ -24,6 +24,25 @@ export const getPosts = async (c: Context) => {
     } catch (error) {
         console.error('Error getting posts:', error)
         return c.json({ success: false, error: 'Failed to get posts' }, 500)
+    }
+}
+
+// Existing getPostById function (no changes to logic needed here)
+export const getPostById = async (c: Context) => {
+    try {
+        const postId = Number(c.req.query('postId')) // Extract postId from query params
+        if (!postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID' }, 400)
+        }
+
+        const res = await postModel.getPostById({ postId }) // Calls the model's getPostById
+        if (!res) {
+            return c.json({ success: false, error: 'Post not found' }, 404)
+        }
+        return c.json(res) // Returns the single post object
+    } catch (error) {
+        console.error('Error getting post by ID:', error)
+        return c.json({ success: false, error: 'Failed to get post by ID' }, 500)
     }
 }
 

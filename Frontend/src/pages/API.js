@@ -56,12 +56,15 @@ export const updateDisplayName = (body) => handle(api.patch('/user/updateDisplay
 
 // POST ROUTES
 export const createPost = (body) => handle(api.post('/post/createPost', body));
-export const getPost = (body) => handle(api.patch('/post/getPosts', body));
+export const getPost = (body) => handle(api.patch('/post/getPosts', body)); // This remains for getting multiple posts
 export const getPostImage = (postId) => handle(api.get('/post/getPostImage', { params: { postId } }));
 export const getPostTitle = (postId) => handle(api.get('/post/getPostTitle', { params: { postId } }));
 export const getPostTag = (postId) => handle(api.get('/post/getPostTag', { params: { postId } }));
 export const deletePost = (body) => handle(api.delete('/post/deletePost', { data: body }));
 export const getPostChecklist = (postId) => handle(api.get('/post/getPostChecklist', { params: { postId } }));
+
+// NEW: API call to get a single post by ID
+export const getPostById = (postId) => handle(api.get('/post/getPostById', { params: { postId } }));
 
 export const isSaved = (userId, postId) =>
     handle(api.get('/post/isSaved', { params: { userId, postId } }));
@@ -71,8 +74,6 @@ export const createSavedPost = (body) => handle(api.post('/savedPost/createSaved
 export const getSavedPostImage = (savedPostId) => handle(api.get('/savedPost/getSavedPostImage', { params: { savedPostId } }));
 export const getSavedPostTitle = (savedPostId) => handle(api.get('/savedPost/getSavedPostTitle', { params: { savedPostId } }));
 export const getSavedPostTag = (savedPostId) => handle(api.get('/savedPost/getSavedPostTag', { params: { savedPostId } }));
-
-// This line is crucial and must be '/savedPost/getSavedPostChecklist'
 export const getSavedPostChecklist = (savedPostId) => handle(api.get('/savedPost/getSavedPostChecklist', { params: { savedPostId } }));
 
 export const deleteSavedPost = (body) => handle(api.delete('/savedPost/deleteSavedPost', { data: body }));
