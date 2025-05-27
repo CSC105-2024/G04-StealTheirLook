@@ -42,13 +42,19 @@ const OutfitDetail = () => {
                     getPostChecklist(id)
                 ]);
 
+                // Log API responses to debug if needed
+                console.log("OutfitDetail API responses:", { imageRes, titleRes, tagRes, checklistRes });
+
                 if (imageRes.success && titleRes.success && tagRes.success) {
                     // Set post data
                     setPost({
                         postId: id,
-                        image: imageRes.data.image,
-                        title: titleRes.data,
-                        tag: tagRes.data,
+                        // imageRes.data is an object containing image, userId, username, profilePicture
+                        image: imageRes.data.image || "",
+                        // titleRes.data is directly the title string
+                        title: titleRes.data || "",
+                        // tagRes.data is directly the tag string
+                        tag: tagRes.data || "",
                     });
 
                     // Set post owner
@@ -60,7 +66,11 @@ const OutfitDetail = () => {
 
                     // Set checklist
                     if (checklistRes.success) {
-                        setChecklist(checklistRes.data || []);
+                        // checklistRes.data is already an array of checklist items
+                        setChecklist(Array.isArray(checklistRes.data) ? checklistRes.data : []);
+                    } else {
+                        console.error("Failed to fetch checklist data:", checklistRes.error);
+                        setChecklist([]);
                     }
 
                     // Check if post is saved
@@ -68,10 +78,15 @@ const OutfitDetail = () => {
                     if (savedSuccess) {
                         setPostIsSaved(savedData.isSaved);
                         setSavedPostId(savedData.savedPostId);
+                    } else {
+                        console.error("Failed to check if post is saved:", savedData?.error);
+                        setPostIsSaved(false);
+                        setSavedPostId(null);
                     }
                 } else {
                     // Post not found or error
                     setPost(null);
+                    console.error("Failed to fetch all post details (image, title, tag):", { imageRes, titleRes, tagRes });
                 }
             } catch (error) {
                 console.error("Error fetching post details:", error);
@@ -85,6 +100,13 @@ const OutfitDetail = () => {
     }, [id, navigate]);
 
     const toggleSavePost = async () => {
+        if (!user || !user.id) {
+            // IMPORTANT: Replace alert with a custom modal UI.
+            alert("You must be logged in to save posts.");
+            navigate('/login');
+            return;
+        }
+
         if (postIsSaved) {
             // Remove from saved
             try {
@@ -93,10 +115,13 @@ const OutfitDetail = () => {
                     setPostIsSaved(false);
                     setSavedPostId(null);
                 } else {
+                    // IMPORTANT: Replace alert with a custom modal UI.
                     alert("Failed to remove from collection");
                 }
             } catch (error) {
                 console.error("Error removing saved post:", error);
+                // IMPORTANT: Replace alert with a custom modal UI.
+                alert("An error occurred while removing the post.");
             }
         } else {
             // Add to saved
@@ -110,10 +135,13 @@ const OutfitDetail = () => {
                     setPostIsSaved(true);
                     setSavedPostId(data.savedPostId);
                 } else {
+                    // IMPORTANT: Replace alert with a custom modal UI.
                     alert("Failed to save to collection");
                 }
             } catch (error) {
                 console.error("Error saving post:", error);
+                // IMPORTANT: Replace alert with a custom modal UI.
+                alert("An error occurred while saving the post.");
             }
         }
     };

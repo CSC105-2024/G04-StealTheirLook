@@ -5,14 +5,19 @@ const api = axios.create({
     withCredentials: true,  // ensures cookies are sent with requests
 });
 
-// No need for token header with cookies
-// api.interceptors.request.use was removed since we're using cookies
-
+// Helper function to standardize API response handling
 const handle = async (promise) => {
     try {
         const res = await promise;
+        // Check if the backend response is already in the { success, data } format.
+        // If it is, return it directly. Otherwise, wrap the raw data.
+        if (res.data && typeof res.data === 'object' && 'success' in res.data && 'data' in res.data) {
+            return res.data; // Backend already returned { success: true, data: actual_value }
+        }
+        // If backend returned raw data (e.g., just a string or array), wrap it
         return { success: true, data: res.data };
     } catch (error) {
+        // Extract error message from response data if available, otherwise use generic message
         return {
             success: false,
             data: null,
@@ -21,13 +26,13 @@ const handle = async (promise) => {
     }
 };
 
-// AUTH
+// AUTH ROUTES
 export const registerUser = (body) => handle(api.post('/auth/register', body));
 export const loginUser = (body) => handle(api.post('/auth/login', body));
 export const getMe = () => handle(api.get('/auth/me'));
 export const logoutUser = () => handle(api.post('/auth/logout'));
 
-// USER ROUTE
+// USER ROUTES
 export const getUsername = (userId) =>
     handle(api.get('/user/getUsername', { params: { userId } }));
 
@@ -49,29 +54,33 @@ export const getSavedPost = (userId) =>
 export const updateProfilePicture = (body) => handle(api.patch('/user/updateProfilePicture', body));
 export const updateDisplayName = (body) => handle(api.patch('/user/updateDisplayName', body));
 
-// POST ROUTE
+// POST ROUTES
 export const createPost = (body) => handle(api.post('/post/createPost', body));
 export const getPost = (body) => handle(api.patch('/post/getPosts', body));
 export const getPostImage = (postId) => handle(api.get('/post/getPostImage', { params: { postId } }));
 export const getPostTitle = (postId) => handle(api.get('/post/getPostTitle', { params: { postId } }));
 export const getPostTag = (postId) => handle(api.get('/post/getPostTag', { params: { postId } }));
-export const getPostChecklist = (postId) => handle(api.get('/post/postCheckList', { params: { postId } }));
 export const deletePost = (body) => handle(api.delete('/post/deletePost', { data: body }));
+export const getPostChecklist = (postId) => handle(api.get('/post/getPostChecklist', { params: { postId } }));
+
 export const isSaved = (userId, postId) =>
     handle(api.get('/post/isSaved', { params: { userId, postId } }));
 
-// SAVED-POST ROUTE
+// SAVED-POST ROUTES
 export const createSavedPost = (body) => handle(api.post('/savedPost/createSavedPost', body));
 export const getSavedPostImage = (savedPostId) => handle(api.get('/savedPost/getSavedPostImage', { params: { savedPostId } }));
 export const getSavedPostTitle = (savedPostId) => handle(api.get('/savedPost/getSavedPostTitle', { params: { savedPostId } }));
 export const getSavedPostTag = (savedPostId) => handle(api.get('/savedPost/getSavedPostTag', { params: { savedPostId } }));
+
+// This line is crucial and must be '/savedPost/getSavedPostChecklist'
 export const getSavedPostChecklist = (savedPostId) => handle(api.get('/savedPost/getSavedPostChecklist', { params: { savedPostId } }));
+
 export const deleteSavedPost = (body) => handle(api.delete('/savedPost/deleteSavedPost', { data: body }));
 
-// SAVED-CHECK ROUTE
+// SAVED-CHECK ROUTES
 export const updateCheck = (body) => handle(api.patch('/savedCheck/updateCheck', body));
 
-// CHECK ROUTE
+// CHECK ROUTES
 export const editCheckBrand = (body) => handle(api.patch('/check/editCheckBrand', body));
 export const editCheckClothe = (body) => handle(api.patch('/check/editCheckClothe', body));
 
