@@ -1,10 +1,10 @@
-import type {Context} from 'hono'
-import * as postModel from '../model/postModel.js'
+import type { Context } from 'hono'
+import * as postModel from '../model/postModel.js' // This import is correct and necessary
 
 export const createPost = async (c: Context) => {
     try {
         const body = await c.req.json()
-        const userId = c.get('userId')
+        const userId = c.get('userId') // Assuming userId is set by a middleware
 
         const postData = { ...body, userId }
 
@@ -18,7 +18,7 @@ export const createPost = async (c: Context) => {
 
 export const getPosts = async (c: Context) => {
     try {
-        const body = await c.req.json()
+        const body = await c.req.json() // Assuming tags are in the request body
         const res = await postModel.getPost(body)
         return c.json(res)
     } catch (error) {
@@ -29,7 +29,7 @@ export const getPosts = async (c: Context) => {
 
 export const getPostImage = async (c: Context) => {
     try {
-        const postId = Number(c.req.query('postId'))
+        const postId = Number(c.req.query('postId')) // Extract postId from query params
         if (!postId || isNaN(postId)) {
             return c.json({ success: false, error: 'Invalid post ID' }, 400)
         }
@@ -90,10 +90,15 @@ export const getPostChecklist = async (c: Context) => {
 export const deletePost = async (c: Context) => {
     try {
         const body = await c.req.json()
-        const userId = c.get('userId')
+        const postId = Number(body.postId) // Ensure postId from request body is a number
+        if (isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID provided' }, 400);
+        }
+
+        const userId = c.get('userId') // Assuming userId is set by a middleware
 
         // Check if post belongs to the user
-        const post = await postModel.getPostById({ postId: body.postId })
+        const post = await postModel.getPostById({ postId: postId })
 
         if (!post) {
             return c.json({ success: false, error: 'Post not found' }, 404)
@@ -103,7 +108,8 @@ export const deletePost = async (c: Context) => {
             return c.json({ success: false, error: 'Unauthorized' }, 403)
         }
 
-        const res = await postModel.deletePost(body)
+        // Call the model function to delete the post
+        const res = await postModel.deletePost({ postId: postId })
         return c.json({ success: true, data: res })
     } catch (error) {
         console.error('Error deleting post:', error)
