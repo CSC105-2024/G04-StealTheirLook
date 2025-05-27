@@ -21,7 +21,6 @@ const OutfitChecklist = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // Check authentication
             const { success: authSuccess, data: userData } = await getMe();
             if (!authSuccess) {
                 navigate('/login');
@@ -29,7 +28,6 @@ const OutfitChecklist = () => {
             }
             setUser(userData);
 
-            // Fetch saved post data
             try {
                 const [imageRes, titleRes, tagRes, checklistRes] = await Promise.all([
                     getSavedPostImage(id),
@@ -38,21 +36,34 @@ const OutfitChecklist = () => {
                     getSavedPostChecklist(id)
                 ]);
 
+                // This console.log is very important for debugging!
+                // It will show what the frontend actually received from the API.
+                console.log("API responses (from frontend):", { imageRes, titleRes, tagRes, checklistRes });
+
+                // Check if all primary data fetches were successful
                 if (imageRes.success && titleRes.success && tagRes.success) {
                     setPost({
                         savedPostId: id,
-                        image: imageRes.data,
-                        title: titleRes.data,
-                        tag: tagRes.data,
-                        userId: userData.id
+                        // FIX APPLIED HERE: Directly access data as backend sends strings/arrays directly
+                        // If imageRes.data is null/undefined, it will fallback to an empty string.
+                        image: imageRes.data || "",
+                        title: titleRes.data || "",
+                        tag: tagRes.data || "",
+                        userId: userData.id // Assuming userId is part of the savedPost model, or from user data
                     });
 
                     if (checklistRes.success) {
-                        setChecklist(checklistRes.data || []);
+                        // FIX APPLIED HERE: checklistRes.data is already the array of items.
+                        // Ensure it's an array, otherwise default to empty array.
+                        setChecklist(Array.isArray(checklistRes.data) ? checklistRes.data : []);
+                    } else {
+                        console.error("Failed to fetch checklist data:", checklistRes.error);
+                        setChecklist([]); // Ensure checklist is an empty array on failure
                     }
                 } else {
-                    // Post not found or error
+                    // If any of the main fetches fail, set post to null and display error message.
                     setPost(null);
+                    console.error("Failed to fetch all saved post details (image, title, tag):", { imageRes, titleRes, tagRes });
                 }
             } catch (error) {
                 console.error("Error fetching saved post:", error);
@@ -87,19 +98,20 @@ const OutfitChecklist = () => {
     };
 
     const removeSavedPost = async () => {
-        if (!window.confirm("Are you sure you want to remove this post from your collection?")) {
-            return;
-        }
+        // IMPORTANT: Replace window.confirm with a custom modal UI as alert/confirm are not supported in Canvas.
+        if (!window.confirm("Are you sure you want to remove this post from your collection?")) return;
 
         try {
             const { success } = await deleteSavedPost({ savedPostId: id });
             if (success) {
                 navigate('/mycollection');
             } else {
+                // IMPORTANT: Replace alert with a custom message box UI.
                 alert("Failed to remove post from collection");
             }
         } catch (error) {
             console.error("Error removing saved post:", error);
+            // IMPORTANT: Replace alert with a custom message box UI.
             alert("An error occurred while removing the post");
         }
     };
@@ -129,6 +141,7 @@ const OutfitChecklist = () => {
     return (
         <div className="max-w-[1200px] mx-auto px-5 my-10 grid gap-12 grid-cols-1 lg:grid-cols-2">
             <div className="w-full rounded-lg overflow-hidden">
+                {/* Ensure post.image is a string (URL) */}
                 <img src={post.image} alt={post.title} className="w-full h-auto object-cover rounded-lg" />
             </div>
 
@@ -136,19 +149,22 @@ const OutfitChecklist = () => {
                 <div className="flex items-center gap-4 mb-6">
                     <img
                         className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
-                        src={user.profilePicture || "https://via.placeholder.com/100"}
+                        src={user?.profilePicture || "https://via.placeholder.com/100"}
                         alt="User Avatar"
                     />
                     <div>
-                        <span className="font-medium text-base tracking-wide">{user.username}</span>
+                        {/* Ensure user?.username is a string */}
+                        <span className="font-medium text-base tracking-wide">{user?.username}</span>
                     </div>
                 </div>
 
+                {/* Ensure post.title is a string */}
                 <h1 className="font-bodoni text-3xl font-normal tracking-wide mb-4">
                     {post.title}
                 </h1>
 
                 <div className="flex flex-wrap gap-2 mb-6">
+                    {/* Ensure post.tag is a string */}
                     <span className="text-sm px-3 py-1 bg-gray-100 rounded-full">{post.tag}</span>
                 </div>
 
@@ -165,6 +181,7 @@ const OutfitChecklist = () => {
                     <h2 className="font-bodoni text-2xl font-normal mb-4">Items in this Look</h2>
                     {checklist.length > 0 ? (
                         <ul className="flex flex-col gap-4">
+                            {/* Ensure checklist is an array of objects with expected properties */}
                             {checklist.map((item) => (
                                 <li
                                     key={item.savedCheckId}

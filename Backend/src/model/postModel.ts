@@ -91,13 +91,15 @@ export const getPost = async (body: { tags?: string[] }) => {
 export const getPostById = async (body: { postId: number }) => {
     try {
         return await db.post.findUnique({
-            where: { postId: body.postId }
-        })
+            where: {
+                postId: body.postId // CORRECT: Using body.postId as a number
+            }
+        });
     } catch (error) {
-        console.error('Error in getPostById:', error)
-        throw error
+        console.error("Error in getPostById:", error);
+        throw error;
     }
-}
+};
 
 export const getPostImage = async (body: { postId: number }) => {
     try {
@@ -152,7 +154,7 @@ export const getPostChecklist = async (body: { postId: number }) => {
         const post = await db.post.findUnique({
             where: { postId: body.postId },
             select: {
-                checkList: {
+                checks: {
                     select: {
                         checkId: true,
                         brand: true,
@@ -160,13 +162,13 @@ export const getPostChecklist = async (body: { postId: number }) => {
                     }
                 }
             },
-        })
-        return post?.checkList || []
+        });
+        return post?.checks || [];
     } catch (error) {
-        console.error('Error in getPostChecklist:', error)
-        throw error
+        console.error('Error in getPostChecklist:', error);
+        throw error;
     }
-}
+};
 
 export const deletePost = async (body: { postId: number }) => {
     try {

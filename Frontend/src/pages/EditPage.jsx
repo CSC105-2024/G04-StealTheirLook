@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
     getMe,
-    getPost,
+    getPostById, // Changed from getPost to getPostById
     getPostChecklist,
     deletePost,
     editCheckBrand,
@@ -31,8 +31,8 @@ const EditPage = () => {
             }
             setUser(userData);
 
-            // Get post data
-            const { success: postSuccess, data: postData } = await getPost({ postId: id });
+            // Get post data using the new getPostById
+            const { success: postSuccess, data: postData } = await getPostById(id); // Changed to getPostById
             if (!postSuccess || !postData) {
                 setLoading(false);
                 return;
@@ -81,6 +81,7 @@ const EditPage = () => {
                 );
                 setEditingId(null);
             } else {
+                // IMPORTANT: Replace alert with a custom modal UI.
                 alert("Failed to update item");
             }
         }
@@ -92,6 +93,7 @@ const EditPage = () => {
             setShowDeleteModal(false);
             navigate("/mycollection");
         } else {
+            // IMPORTANT: Replace alert with a custom modal UI.
             alert("Failed to delete post");
         }
     };
@@ -108,7 +110,7 @@ const EditPage = () => {
         <div className="max-w-[1200px] mx-auto px-5 my-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="w-full rounded-lg overflow-hidden">
                 <img
-                    src={post.image}
+                    src={post.image} // This should now correctly receive a string URL
                     alt={post.title}
                     className="w-full h-auto object-cover rounded-lg"
                 />
@@ -118,10 +120,10 @@ const EditPage = () => {
                 <div className="flex items-center gap-4 mb-6">
                     <img
                         className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
-                        src={user.profilePicture || "https://via.placeholder.com/100"}
+                        src={user?.profilePicture || "https://via.placeholder.com/100"} // Added optional chaining
                         alt="User Avatar"
                     />
-                    <span className="font-medium text-base tracking-wide">{user.username}</span>
+                    <span className="font-medium text-base tracking-wide">{user?.username}</span> {/* Added optional chaining */}
                 </div>
 
                 <h1 className="font-bodoni text-3xl font-normal tracking-wide mb-4">{post.title}</h1>
