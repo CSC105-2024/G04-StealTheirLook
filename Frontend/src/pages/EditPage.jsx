@@ -184,8 +184,8 @@ const EditPage = () => {
                                     ) : (
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <div className="font-medium text-base">{item.brand}</div>
-                                                <div className="text-sm text-gray-600">{item.clothe}</div>
+                                                <div className="font-medium text-base">{item.clothe}</div>
+                                                <div className="text-sm text-gray-600">{item.brand}</div>
                                             </div>
                                             <button
                                                 onClick={() => handleEditClick(item)}

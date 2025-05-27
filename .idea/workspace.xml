@@ -6,10 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="5df5ad0e-3c50-449b-b5ad-16b11cdea764" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/20250523092523_schema/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/prisma/migrations/migration_lock.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/dev.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/controller/savedPostController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/savedPostController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/edge.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index-browser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/query_engine-windows.dll.node" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/query_engine-windows.dll.node" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/generated/prisma/wasm.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/generated/prisma/wasm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/model/savedPostModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/model/savedPostModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/CreatePost.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/EditPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/EditPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/MyCollection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitChecklist.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/pages/OutfitDetail.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +70,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "resposiveRemember",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/user/Documents/GitHub/G04-StealTheirLook",
     "node.js.detected.package.eslint": "true",
@@ -125,6 +139,7 @@
       <workItem from="1748325496252" duration="293000" />
       <workItem from="1748326037751" duration="477000" />
       <workItem from="1748327145493" duration="235000" />
+      <workItem from="1748329584872" duration="2459000" />
     </task>
     <servers />
   </component>

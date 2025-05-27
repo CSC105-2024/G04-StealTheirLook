@@ -194,8 +194,8 @@ const OutfitChecklist = () => {
                                         className="w-4 h-4 mt-3 accent-black"
                                     />
                                     <div className={item.completed ? "line-through text-gray-400" : ""}>
-                                        <div className="font-medium text-base">{item.brand}</div>
-                                        <div className="text-gray-600 text-sm">{item.clothe}</div>
+                                        <div className="font-medium text-base">{item.clothe}</div>
+                                        <div className="text-gray-600 text-sm">{item.brand}</div>
                                     </div>
                                 </li>
                             ))}

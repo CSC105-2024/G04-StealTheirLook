@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.8.2
+ * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.8.2",
+  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -162,7 +162,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Pam\\Documents\\GitHub\\G04-StealTheirLook-PreHack-2025\\Backend\\src\\generated\\prisma",
+      "value": "C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -176,7 +176,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Pam\\Documents\\GitHub\\G04-StealTheirLook-PreHack-2025\\Backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\User\\ReactProject\\StealTheirLook\\G04-StealTheirLook\\Backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -184,8 +184,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.7.0",
-  "engineVersion": "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed",
+  "clientVersion": "6.8.2",
+  "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
   "datasourceNames": [
     "db"
   ],
@@ -194,12 +194,12 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "file:./dev.db"
+        "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  userId         Int      @id @default(autoincrement())\n  username       String   @unique\n  password       String\n  displayName    String?\n  profilePicture String?\n  createdAt      DateTime @default(now())\n\n  // Relations\n  posts      Post[]\n  savedPosts SavedPost[]\n}\n\nmodel Post {\n  postId    Int      @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  createdAt DateTime @default(now())\n  userId    Int\n\n  // Relations\n  user   User    @relation(fields: [userId], references: [userId], onDelete: Cascade)\n  checks Check[] // Renamed for clarity\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n\n  // Relations\n  post Post @relation(fields: [postId], references: [postId], onDelete: Cascade)\n}\n\nmodel SavedPost {\n  savedPostId  String   @id // Format: \"U{userId}P{postId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  createdAt    DateTime @default(now())\n  userId       Int\n\n  // Relations\n  user        User         @relation(fields: [userId], references: [userId], onDelete: Cascade)\n  savedChecks SavedCheck[] // Renamed for clarity\n}\n\nmodel SavedCheck {\n  savedCheckId  String  @id // Format: \"C{checkId}U{userId}\"\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean @default(false)\n  savedPostId   String\n\n  // Relations\n  savedPost SavedPost @relation(fields: [savedPostId], references: [savedPostId], onDelete: Cascade) // Renamed for clarity\n}\n",
-  "inlineSchemaHash": "efc0fa98f375fbe7fad47dd1a8bb97fe27b3df59a7f01218600d3e7a74ff0f72",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// datasource db {\n//   provider          = \"mysql\"\n//   url               = env(\"DATABASE_URL\")\n//   shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n// }\n\nmodel User {\n  userId         Int      @id @default(autoincrement())\n  username       String   @unique\n  password       String\n  displayName    String?\n  profilePicture String?\n  createdAt      DateTime @default(now())\n\n  // Relations\n  posts      Post[]\n  savedPosts SavedPost[]\n}\n\nmodel Post {\n  postId    Int      @id @default(autoincrement())\n  image     String\n  title     String\n  tag       String\n  createdAt DateTime @default(now())\n  userId    Int\n\n  // Relations\n  user   User    @relation(fields: [userId], references: [userId], onDelete: Cascade)\n  checks Check[] // Renamed for clarity\n}\n\nmodel Check {\n  checkId Int    @id @default(autoincrement())\n  brand   String\n  clothe  String\n  postId  Int\n\n  // Relations\n  post Post @relation(fields: [postId], references: [postId], onDelete: Cascade)\n}\n\nmodel SavedPost {\n  savedPostId  String   @id // Format: \"U{userId}P{postId}\"\n  originalPost Int\n  image        String\n  title        String\n  tag          String\n  createdAt    DateTime @default(now())\n  userId       Int\n\n  // Relations\n  user        User         @relation(fields: [userId], references: [userId], onDelete: Cascade)\n  savedChecks SavedCheck[] // Renamed for clarity\n}\n\nmodel SavedCheck {\n  savedCheckId  String  @id // Format: \"C{checkId}U{userId}\"\n  originalCheck Int\n  brand         String\n  clothe        String\n  completed     Boolean @default(false)\n  savedPostId   String\n\n  // Relations\n  savedPost SavedPost @relation(fields: [savedPostId], references: [savedPostId], onDelete: Cascade) // Renamed for clarity\n}\n",
+  "inlineSchemaHash": "db2df842456675dd4c909bd854d672e80745305bd33dedd784aef09250ed217e",
   "copyEngine": true
 }
 config.dirname = '/'

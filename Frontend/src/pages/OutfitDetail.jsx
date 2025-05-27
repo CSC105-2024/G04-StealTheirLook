@@ -134,6 +134,7 @@ const OutfitDetail = () => {
                 if (success && data) {
                     setPostIsSaved(true);
                     setSavedPostId(data.savedPostId);
+                    console.log(data)
                 } else {
                     // IMPORTANT: Replace alert with a custom modal UI.
                     alert("Failed to save to collection");
@@ -229,8 +230,8 @@ const OutfitDetail = () => {
                                         key={item.checkId}
                                         className="flex flex-col p-4 border border-gray-200 rounded-lg transition-transform duration-300 ease-in-out hover:border-gray-300"
                                     >
-                                        <div className="font-medium mb-1 text-lg">{item.brand}</div>
-                                        <div className="text-gray-600 text-sm">{item.clothe}</div>
+                                        <div className="font-medium mb-1 text-lg">{item.clothe}</div>
+                                        <div className="text-gray-600 text-sm">{item.brand}</div>
                                     </li>
                                 ))}
                             </ul>

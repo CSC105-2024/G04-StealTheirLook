@@ -68,12 +68,12 @@ const createSavedPost = async (c: Context) => {
             });
         }
 
-        const [imageData, titleData, tagData, checklistData] = await Promise.all([
+        const [imageData, checklistData] = await Promise.all([
             postModel.getPostImage({ postId: postIdAsNumber }),
-            postModel.getPostTitle({ postId: postIdAsNumber }),
-            postModel.getPostTag({ postId: postIdAsNumber }),
             postModel.getPostChecklist({ postId: postIdAsNumber })
         ]);
+        const titleData = await postModel.getPostTitle({ postId: postIdAsNumber })
+        const tagData = await postModel.getPostTag({ postId: postIdAsNumber })
 
         console.log(`[Controller - createSavedPost] Fetched original post details: image=${imageData ? 'yes' : 'no'}, title=${titleData ? 'yes' : 'no'}, tag=${tagData ? 'yes' : 'no'}, checklist=${checklistData ? checklistData.length : 'no'}`);
 

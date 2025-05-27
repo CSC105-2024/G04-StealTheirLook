@@ -138,7 +138,7 @@ const CreatePost = () => {
                     />
                 </div>
 
-                <div className="mb-[30px]">
+                <div className="mb-[30px] flex flex-col items-center">
                     <input
                         type="file"
                         id="fileInput"

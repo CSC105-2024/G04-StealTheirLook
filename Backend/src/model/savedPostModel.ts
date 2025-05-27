@@ -24,9 +24,9 @@ export const createSavedPost = async (body: {
                 // Ensure you're getting the actual image string, and use ?? '' for fallback
                 image: body.image?.image ?? '',
                 // Ensure you're getting the actual title string, and use ?? '' for fallback
-                title: body.title?.title ?? '',
+                title: body.title ?? '',
                 // Ensure you're getting the actual tag string, and use ?? '' for fallback
-                tag: body.tag?.tag ?? '',
+                tag: body.tag ?? '',
                 userId: body.userId,
             },
         });

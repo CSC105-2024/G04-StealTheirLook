@@ -37,6 +37,7 @@ const MyCollection = () => {
         const { success: savedSuccess, data: savedData } = await getSavedPost(userId);
         if (savedSuccess && savedData) {
             setSavedPosts(savedData);
+            console.log(savedData);
         }
 
         setLoading(false);
