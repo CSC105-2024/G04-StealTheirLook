@@ -123,7 +123,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   displayName: 'displayName',
   profilePicture: 'profilePicture',
-  joinDate: 'joinDate'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
@@ -131,6 +131,7 @@ exports.Prisma.PostScalarFieldEnum = {
   image: 'image',
   title: 'title',
   tag: 'tag',
+  createdAt: 'createdAt',
   userId: 'userId'
 };
 
@@ -147,6 +148,7 @@ exports.Prisma.SavedPostScalarFieldEnum = {
   image: 'image',
   title: 'title',
   tag: 'tag',
+  createdAt: 'createdAt',
   userId: 'userId'
 };
 
@@ -162,6 +164,11 @@ exports.Prisma.SavedCheckScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

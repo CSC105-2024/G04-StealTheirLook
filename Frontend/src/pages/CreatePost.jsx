@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPost, getMe } from "./API";
 
 const CreatePost = () => {
     const [currentTag, setCurrentTag] = useState("");
     const [items, setItems] = useState([]);
-    const [itemForm, setItemForm] = useState({name: "", brand: "" });
+    const [itemForm, setItemForm] = useState({name: "", brand: ""});
     const [file, setFile] = useState(null);
-    const [title, setTitle] = useState(""); // New: title state
+    const [title, setTitle] = useState("");
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { success, data } = await getMe();
+            if (success) {
+                setUser(data);
+            }
+            setLoading(false);
+        };
+        fetchUser();
+    }, []);
 
     const tags = [
         "Sporty",
@@ -57,20 +71,19 @@ const CreatePost = () => {
         e.preventDefault();
         if (!itemForm.name || !itemForm.brand) return;
         setItems((prev) => [...prev, itemForm]);
-        console.log(itemForm);
-        setItemForm({name: "", brand: "" });
+        setItemForm({name: "", brand: ""});
     };
 
     const removeItem = (id) => {
         setItems(items.filter((item) => item.id !== id));
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        if (!currentUser) {
+        if (!user) {
             alert("You must be logged in to create a post.");
+            navigate('/login');
             return;
         }
 
@@ -78,27 +91,27 @@ const CreatePost = () => {
             alert("Please provide a title, image, and tag.");
             return;
         }
-        console.log(file)
-        console.log(title)
-        console.log(currentTag)
-        console.log(items);
 
         const newPost = {
             image: file,
             title: title,
             tag: currentTag,
             items: items,
-            userId: 2,
-            userEmail: currentUser.email // 🔑 Link post to user
+            userId: user.id
         };
-        console.log(newPost);
 
-        const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
-        existingPosts.push(newPost);
-        localStorage.setItem("posts", JSON.stringify(existingPosts));
+        const { success, error } = await createPost(newPost);
 
-        navigate("/mycollection");
+        if (success) {
+            navigate("/mycollection");
+        } else {
+            alert(`Failed to create post: ${error}`);
+        }
     };
+
+    if (loading) {
+        return <div className="text-center py-10">Loading...</div>;
+    }
 
     return (
         <div>
@@ -112,7 +125,6 @@ const CreatePost = () => {
             </div>
 
             <form onSubmit={onSubmit} className="max-w-[800px] mx-auto px-[20px]">
-                {/* Post Title */}
                 <div className="mb-[30px]">
                     <label className="block mb-[10px] text-[13px] uppercase tracking-[1px] text-[#333] font-medium">
                         POST TITLE
@@ -126,7 +138,6 @@ const CreatePost = () => {
                     />
                 </div>
 
-                {/* Image Upload */}
                 <div className="mb-[30px]">
                     <input
                         type="file"
@@ -149,7 +160,6 @@ const CreatePost = () => {
                     )}
                 </div>
 
-                {/* Tag Selection */}
                 <div className="mb-[30px]">
                     <label className="block mb-[10px] text-[13px] uppercase tracking-[1px] text-[#333] font-medium">
                         TAG
@@ -169,7 +179,6 @@ const CreatePost = () => {
                     </select>
                 </div>
 
-                {/* Clothing Items */}
                 <div className="mb-[30px]">
                     <label className="block mb-[10px] text-[13px] uppercase tracking-[1px] text-[#333] font-medium">
                         CLOTHING ITEMS
@@ -207,7 +216,6 @@ const CreatePost = () => {
                         </button>
                     </div>
 
-                    {/* Render Added Items */}
                     <ul>
                         {items.map((item) => (
                             <li
@@ -229,7 +237,6 @@ const CreatePost = () => {
                     </ul>
                 </div>
 
-                {/* Submit Button */}
                 <button
                     type="submit"
                     className="w-full p-[14px] bg-black text-white rounded text-[14px] uppercase tracking-[2px] transition-all duration-300"

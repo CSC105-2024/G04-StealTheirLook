@@ -1,9 +1,9 @@
-import { Hono } from "hono"
-import * as checkController from "../controller/checkController.js"
+import { Hono } from 'hono'
+import * as checkController from '../controller/checkController.js'
+import { auth } from '../middleware/auth.js'
 
-const checkRouter = new Hono()
+export const checkRoute = new Hono()
 
-checkRouter.patch('/editCheckBrand', checkController.editCheckBrand)
-checkRouter.patch('/editCheckClothe', checkController.editCheckClothe)
-
-export { checkRouter }
+// All check operations require authentication
+checkRoute.patch('/editCheckBrand', auth, checkController.editCheckBrand)
+checkRoute.patch('/editCheckClothe', auth, checkController.editCheckClothe)

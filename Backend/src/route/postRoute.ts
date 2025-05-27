@@ -1,17 +1,19 @@
-import { Hono } from "hono"
-import * as postController from "../controller/postController.js"
-const postRouter = new Hono()
+import { Hono } from 'hono'
+import * as postController from '../controller/postController.js'
+import { auth } from '../middleware/auth.js'
 
-postRouter.post('/createPost', postController.createPost)
+export const postRoute = new Hono()
 
-postRouter.patch('/getPosts', postController.getPosts)
-postRouter.get('/getPostImage', postController.getPostImage)
-postRouter.get('/getPostTitle', postController.getPostTitle)
-postRouter.get('/getPostTag', postController.getPostTag)
-postRouter.get('/getPostChecklist', postController.getPostChecklist)
+// Protected routes that require authentication
+postRoute.post('/createPost', auth, postController.createPost)
+postRoute.delete('/deletePost', auth, postController.deletePost)
 
-postRouter.delete('/deletePost', postController.deletePost)
+// Public routes
+postRoute.patch('/getPosts', postController.getPosts)
+postRoute.get('/getPostImage', postController.getPostImage)
+postRoute.get('/getPostTitle', postController.getPostTitle)
+postRoute.get('/getPostTag', postController.getPostTag)
+postRoute.get('/getPostChecklist', postController.getPostChecklist)
 
-postRouter.get("/isSaved", postController.findPost)
-
-export { postRouter }
+// Mixed route - requires userId but can be accessed publicly
+postRoute.get('/isSaved', postController.isSaved)

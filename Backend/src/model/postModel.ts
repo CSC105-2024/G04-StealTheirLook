@@ -1,126 +1,203 @@
-import { db } from "../index.js"
+import { db } from '../index.js'
 
-const createPost = async(body: any) => {
-    const post = await db.post.create({
-        data : {
-            image: body.image,
-            title: body.title,
-            tag: body.tag,
-            userId: body.userId,
+export const createPost = async (body: {
+    image: string
+    title: string
+    tag: string
+    userId: number
+    items: { name: string; brand: string; id: string }[]
+}) => {
+    try {
+        // Create the post
+        const post = await db.post.create({
+            data: {
+                image: body.image,
+                title: body.title,
+                tag: body.tag,
+                userId: body.userId
+            },
+        })
+
+        // Create checklist items
+        if (body.items && body.items.length > 0) {
+            await Promise.all(
+                body.items.map((item) =>
+                    db.check.create({
+                        data: {
+                            brand: item.brand,
+                            clothe: item.name,
+                            postId: post.postId
+                        },
+                    })
+                )
+            )
         }
-    })
 
-    const postId = post.postId
+        return post
+    } catch (error) {
+        console.error('Error in createPost:', error)
+        throw error
+    }
+}
 
-    for(const ele of body.checklist) {
-        const check = await db.check.create({
-            data : {
-                brand: ele.brand,
-                clothe: ele.clothe,
-                postId: postId,
+export const getPost = async (body: { tags?: string[] }) => {
+    try {
+        if (!body.tags || body.tags.length === 0) {
+            return await db.post.findMany({
+                select: {
+                    postId: true,
+                    image: true,
+                    title: true,
+                    tag: true,
+                    userId: true,
+                    user: {
+                        select: {
+                            username: true,
+                            profilePicture: true
+                        }
+                    }
+                },
+                orderBy: {
+                    postId: 'desc'
+                }
+            })
+        } else {
+            return await db.post.findMany({
+                where: { tag: { in: body.tags } },
+                select: {
+                    postId: true,
+                    image: true,
+                    title: true,
+                    tag: true,
+                    userId: true,
+                    user: {
+                        select: {
+                            username: true,
+                            profilePicture: true
+                        }
+                    }
+                },
+                orderBy: {
+                    postId: 'desc'
+                }
+            })
+        }
+    } catch (error) {
+        console.error('Error in getPost:', error)
+        throw error
+    }
+}
+
+export const getPostById = async (body: { postId: number }) => {
+    try {
+        return await db.post.findUnique({
+            where: { postId: body.postId }
+        })
+    } catch (error) {
+        console.error('Error in getPostById:', error)
+        throw error
+    }
+}
+
+export const getPostImage = async (body: { postId: number }) => {
+    try {
+        const post = await db.post.findUnique({
+            where: { postId: body.postId },
+            select: {
+                image: true,
+                userId: true,
+                user: {
+                    select: {
+                        username: true,
+                        profilePicture: true
+                    }
+                }
             }
         })
+        return post
+    } catch (error) {
+        console.error('Error in getPostImage:', error)
+        throw error
     }
-
-    return post
 }
 
-const getPost = async(body: any) => {
-    if(body.tags.length == 0) {
-        const p = await db.post.findMany()
-        return p
+export const getPostTitle = async (body: { postId: number }) => {
+    try {
+        const post = await db.post.findUnique({
+            where: { postId: body.postId },
+            select: { title: true }
+        })
+        return post?.title || null
+    } catch (error) {
+        console.error('Error in getPostTitle:', error)
+        throw error
     }
-    const posts = await db.post.findMany({
-        where : {
-            tag: {in: body.tags}
-        }
-    })
-
-    return posts
 }
 
-const getPostImage = async(body: any) => {
-    const image = await db.post.findFirst({
-        where: {
-            postId: body.postId,
-        },
-        select: {
-            image: true
-        }
-    })
-
-    return image
+export const getPostTag = async (body: { postId: number }) => {
+    try {
+        const post = await db.post.findUnique({
+            where: { postId: body.postId },
+            select: { tag: true }
+        })
+        return post?.tag || null
+    } catch (error) {
+        console.error('Error in getPostTag:', error)
+        throw error
+    }
 }
 
-const getPostTitle = async(body: any) => {
-    const title = await db.post.findFirst({
-        where: {
-            postId: body.postId,
-        },
-        select: {
-            title: true
-        }
-    })
-
-    return title
+export const getPostChecklist = async (body: { postId: number }) => {
+    try {
+        const post = await db.post.findUnique({
+            where: { postId: body.postId },
+            select: {
+                checkList: {
+                    select: {
+                        checkId: true,
+                        brand: true,
+                        clothe: true,
+                    }
+                }
+            },
+        })
+        return post?.checkList || []
+    } catch (error) {
+        console.error('Error in getPostChecklist:', error)
+        throw error
+    }
 }
 
-const getPostTag = async(body: any) => {
-    const tag = await db.post.findFirst({
-        where: {
-            postId: body.postId,
-        },
-        select: {
-            tag: true
-        }
-    })
+export const deletePost = async (body: { postId: number }) => {
+    try {
+        // Delete all checklist items first
+        await db.check.deleteMany({
+            where: { postId: body.postId }
+        })
 
-    return tag
+        // Then delete the post
+        return await db.post.delete({
+            where: { postId: body.postId }
+        })
+    } catch (error) {
+        console.error('Error in deletePost:', error)
+        throw error
+    }
 }
 
-const getPostChecklist = async(body: any) => {
-    const checklist = await db.post.findFirst({
-        where: {
-            postId: body.postId,
-        },
-        select: {
-            checkList: true
-        }
-    })
-
-    // @ts-ignore
-    const c = checklist.checkList
-    return c
+export const isSaved = async (body: { userId: number; postId: number }) => {
+    try {
+        return await db.savedPost.findFirst({
+            where: {
+                userId: body.userId,
+                originalPost: body.postId
+            },
+            select: {
+                savedPostId: true
+            }
+        })
+    } catch (error) {
+        console.error('Error in isSaved:', error)
+        throw error
+    }
 }
-
-const deletePost = async(body: any) => {
-    const deleteCheck = await db.check.deleteMany({
-        where : {
-            postId: body.postId,
-        }
-    })
-
-    const deletePost = await db.post.delete({
-        where : {
-            postId: body.postId,
-        }
-    })
-
-    return deletePost
-}
-
-const isSaved = async(body: any) => {
-    const findPost = await db.savedPost.findFirst({
-        where : {
-            userId: body.userId,
-            originalPost: body.postId,
-        }
-    })
-
-    return findPost
-}
-
-export { createPost,
-        getPost, getPostImage, getPostTitle, getPostTag, getPostChecklist,
-        deletePost,
-        isSaved}

@@ -1,8 +1,8 @@
-import { Hono } from "hono"
+import { Hono } from 'hono'
 import * as savedCheckController from '../controller/savedCheckController.js'
+import { auth } from '../middleware/auth.js'
 
-const savedCheckRouter = new Hono()
+export const savedCheckRoute = new Hono()
 
-savedCheckRouter.patch('/updateCheck', savedCheckController.updateCheck)
-
-export { savedCheckRouter }
+// All saved check operations require authentication
+savedCheckRoute.patch('/updateCheck', auth, savedCheckController.updateCheck)

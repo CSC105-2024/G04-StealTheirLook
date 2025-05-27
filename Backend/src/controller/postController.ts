@@ -1,303 +1,132 @@
-import type { Context } from "hono";
-import * as postModel from "../model/postModel.js"
+import type {Context} from 'hono'
+import * as postModel from '../model/postModel.js'
 
-type createPost = {
-    image: string,
-    title: string,
-    tag: string,
-    userId: number
-    checklist: string[]
-}
-
-type deletePost = {
-    postId: number,
-}
-
-type getPost = {
-    tags: string[],
-}
-
-const createPost = async (c: Context) => {
+export const createPost = async (c: Context) => {
     try {
-        const body = await c.req.json<createPost>()
-        if(!body.image || !body.title || !body.tag || !body.userId || body.checklist.length === 0 ) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
+        const body = await c.req.json()
+        const userId = c.get('userId')
+
+        const postData = { ...body, userId }
+
+        const res = await postModel.createPost(postData)
+        return c.json({ success: true, data: res })
+    } catch (error) {
+        console.error('Error creating post:', error)
+        return c.json({ success: false, error: 'Failed to create post' }, 500)
+    }
+}
+
+export const getPosts = async (c: Context) => {
+    try {
+        const body = await c.req.json()
+        const res = await postModel.getPost(body)
+        return c.json(res)
+    } catch (error) {
+        console.error('Error getting posts:', error)
+        return c.json({ success: false, error: 'Failed to get posts' }, 500)
+    }
+}
+
+export const getPostImage = async (c: Context) => {
+    try {
+        const postId = Number(c.req.query('postId'))
+        if (!postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID' }, 400)
         }
 
-        const post = await postModel.createPost(body);
+        const res = await postModel.getPostImage({ postId })
+        return c.json(res)
+    } catch (error) {
+        console.error('Error getting post image:', error)
+        return c.json({ success: false, error: 'Failed to get post image' }, 500)
+    }
+}
+
+export const getPostTitle = async (c: Context) => {
+    try {
+        const postId = Number(c.req.query('postId'))
+        if (!postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID' }, 400)
+        }
+
+        const res = await postModel.getPostTitle({ postId })
+        return c.json(res)
+    } catch (error) {
+        console.error('Error getting post title:', error)
+        return c.json({ success: false, error: 'Failed to get post title' }, 500)
+    }
+}
+
+export const getPostTag = async (c: Context) => {
+    try {
+        const postId = Number(c.req.query('postId'))
+        if (!postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID' }, 400)
+        }
+
+        const res = await postModel.getPostTag({ postId })
+        return c.json(res)
+    } catch (error) {
+        console.error('Error getting post tag:', error)
+        return c.json({ success: false, error: 'Failed to get post tag' }, 500)
+    }
+}
+
+export const getPostChecklist = async (c: Context) => {
+    try {
+        const postId = Number(c.req.query('postId'))
+        if (!postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid post ID' }, 400)
+        }
+
+        const res = await postModel.getPostChecklist({ postId })
+        return c.json(res)
+    } catch (error) {
+        console.error('Error getting post checklist:', error)
+        return c.json({ success: false, error: 'Failed to get post checklist' }, 500)
+    }
+}
+
+export const deletePost = async (c: Context) => {
+    try {
+        const body = await c.req.json()
+        const userId = c.get('userId')
+
+        // Check if post belongs to the user
+        const post = await postModel.getPostById({ postId: body.postId })
+
+        if (!post) {
+            return c.json({ success: false, error: 'Post not found' }, 404)
+        }
+
+        if (post.userId !== userId) {
+            return c.json({ success: false, error: 'Unauthorized' }, 403)
+        }
+
+        const res = await postModel.deletePost(body)
+        return c.json({ success: true, data: res })
+    } catch (error) {
+        console.error('Error deleting post:', error)
+        return c.json({ success: false, error: 'Failed to delete post' }, 500)
+    }
+}
+
+export const isSaved = async (c: Context) => {
+    try {
+        const userId = Number(c.req.query('userId'))
+        const postId = Number(c.req.query('postId'))
+
+        if (!userId || isNaN(userId) || !postId || isNaN(postId)) {
+            return c.json({ success: false, error: 'Invalid user ID or post ID' }, 400)
+        }
+
+        const res = await postModel.isSaved({ userId, postId })
         return c.json({
-            success: true,
-            data: post,
-            msg: "created post",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const getPosts = async(c: Context) => {
-    try {
-        const body = await c.req.json<getPost>()
-        if(!body.tags) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const posts = await postModel.getPost(body);
-        return c.json({
-            success: true,
-            data: posts,
-            msg: "got posts",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const getPostImage = async (c: Context) => {
-    try {
-        const body = await c.req.query("postId")
-        if(body == null) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const image = await postModel.getPostImage({body});
-        return c.json({
-            success: true,
-            data: image,
-            msg: "got post image",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const getPostTitle = async (c: Context) => {
-    try {
-        const body = await c.req.query("postId")
-        if(body == null) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const title = await postModel.getPostTitle({body});
-        return c.json({
-            success: true,
-            data: title,
-            msg: "got post title",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const getPostTag = async (c: Context) => {
-    try {
-        const body = await c.req.query("postId")
-        if(body == null) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const tag = await postModel.getPostTag({body});
-        return c.json({
-            success: true,
-            data: tag,
-            msg: "got post tag",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const getPostChecklist = async (c: Context) => {
-    try {
-        const postId = await c.req.query("postId")
-        const userId = await c.req.query("userId")
-        if(postId == null || userId == null) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const checklist = await postModel.getPostChecklist({
-            postId: Number(postId),
-            userId: Number(userId)
-        });
-        return c.json({
-            success: true,
-            data: checklist,
-            msg: "got post checklist",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const deletePost = async (c: Context) => {
-    try {
-        const body = await c.req.json<deletePost>()
-        if(!body.postId) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const deletePost = await postModel.deletePost(body)
-        return c.json({
-            success: true,
-            data: deletePost,
-            msg: "deleted a post",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
-    }
-}
-
-const findPost = async (c: Context) => {
-    try {
-        const userId = await c.req.query("userId")
-        const postId = await c.req.query("postId")
-
-        if(userId == null || postId == null) {
-            return c.json(
-                {
-                    success: false,
-                    data: null,
-                    msg: "Missing required fields",
-                },
-                400
-            );
-        }
-
-        const findPost = await postModel.isSaved({
-            userId: Number(userId),
-            postId: Number(postId)
+            isSaved: !!res,
+            savedPostId: res ? res.savedPostId : null
         })
-        if(findPost) {
-            return c.json({
-                success: true,
-                data: true,
-                msg: "post is already saved",
-            });
-        }
-        return c.json({
-            success: true,
-            data: false,
-            msg: "post is not saved",
-        });
-    }
-    catch (error) {
-        return c.json(
-            {
-                success: false,
-                data: null,
-                msg: `Internal Server Error : ${error}`,
-            },
-            500
-        )
+    } catch (error) {
+        console.error('Error checking if post is saved:', error)
+        return c.json({ success: false, error: 'Failed to check if post is saved' }, 500)
     }
 }
-
-export { createPost,
-        getPosts, getPostImage, getPostTitle, getPostTag, getPostChecklist,
-        deletePost,
-        findPost};

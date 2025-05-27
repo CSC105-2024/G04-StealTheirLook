@@ -1,127 +1,112 @@
-import { db } from "../index.js"
+import { db } from '../index.js'
 
-const createUser = async(body: any) => {
-
-    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    const d = new Date();
-
-    const user = await db.user.create({
-        data : {
-            username : body.username,
-            password : body.password,
-            displayName : body.username,
-            profilePicture : "",
-            joinDate : month[d.getMonth()] + " " + d.getFullYear(),
-        }
+export const getUsername = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: { username: true },
     })
-
-    return user
+    return user?.username || null
 }
 
-const getUsername = async(body: any) => {
-    const username = await db.user.findFirst({
-        where : {
-            userId : body.userId
+export const getUserProfilePicture = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: { profilePicture: true },
+    })
+    return user?.profilePicture || null
+}
+
+export const getDisplayName = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: { displayName: true },
+    })
+    return user?.displayName || null
+}
+
+export const getJoinDate = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: { joinDate: true },
+    })
+    return user?.joinDate || null
+}
+
+export const getUserPost = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: {
+            posts: {
+                select: {
+                    postId: true,
+                    image: true,
+                    title: true,
+                    tag: true,
+                    userId: true,
+                }
+            }
         },
-        select : {
-            username : true
-        }
     })
 
-    return username
+    // Return an empty array if no posts found
+    return user?.posts || []
 }
 
-const getUserProfilePicture = async(body: any) => {
-    const profilePicture = await db.user.findFirst({
-        where : {
-            userId : body.userId
+export const getUserSavedPost = async (body: { userId: number }) => {
+    const user = await db.user.findUnique({
+        where: { userId: body.userId },
+        select: {
+            savedPosts: {
+                select: {
+                    savedPostId: true,
+                    originalPost: true,
+                    image: true,
+                    title: true,
+                    tag: true,
+                    userId: true,
+                }
+            }
         },
-        select : {
-            profilePicture : true
-        }
     })
 
-    return profilePicture
+    // Return an empty array if no saved posts found
+    return user?.savedPosts || []
 }
 
-const getDisplayName = async(body: any) => {
-    const displayName = await db.user.findFirst({
-        where : {
-            userId : body.userId
-        },
-        select : {
-            displayName : true
-        }
-    })
-
-    return displayName
+export const updateProfilePicture = async (body: { userId: number; profilePicture: string }) => {
+    try {
+        const updated = await db.user.update({
+            where: { userId: body.userId },
+            data: { profilePicture: body.profilePicture },
+            select: {
+                userId: true,
+                username: true,
+                displayName: true,
+                profilePicture: true,
+            }
+        })
+        return { success: true, data: updated }
+    } catch (error) {
+        console.error('Error updating profile picture:', error)
+        return { success: false, error: 'Failed to update profile picture' }
+    }
 }
 
-const getUserPost = async(body: any) => {
-    const posts = await db.user.findFirst({
-        where : {
-            userId : body.userId
-        },
-        select : {
-            post : true
-        }
-    })
-
-    return posts
+export const updateDisplayName = async (body: { userId: number; displayName: string }) => {
+    try {
+        const updated = await db.user.update({
+            where: { userId: body.userId },
+            data: { displayName: body.displayName },
+            select: {
+                userId: true,
+                username: true,
+                displayName: true,
+                profilePicture: true,
+            }
+        })
+        return { success: true, data: updated }
+    } catch (error) {
+        console.error('Error updating display name:', error)
+        return { success: false, error: 'Failed to update display name' }
+    }
 }
-
-const getUserSavedPost = async(body: any) => {
-    const savedPost = await db.user.findFirst({
-        where : {
-            userId : body.userId
-        },
-        select : {
-            savedPost : true
-        }
-    })
-
-    return savedPost;
-}
-
-const updateProfilePicture = async(body: any) => {
-    const profilePicture = await db.user.update({
-        where : {
-            userId : body.userId
-        },
-        data : {
-            profilePicture : body.image
-        }
-    })
-
-    return profilePicture
-}
-
-const updateDisplayName = async(body: any) => {
-    const name = db.user.update({
-        where : {
-            userId : body.userId
-        },
-        data : {
-            displayName : body.displayName
-        }
-    })
-
-    return name
-}
-
-const getJoinDate = async(body: any) => {
-    const joinDate = await db.user.findFirst({
-        where : {
-            userId : body.userId
-        },
-        select : {
-            joinDate : true
-        }
-    })
-
-    return joinDate
-}
-
-export { createUser,
-        getUsername, getUserProfilePicture, getDisplayName, getJoinDate, getUserPost, getUserSavedPost,
-        updateProfilePicture, updateDisplayName}

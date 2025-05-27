@@ -1,82 +1,130 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+    getMe,
+    getSavedPostImage,
+    getSavedPostTitle,
+    getSavedPostTag,
+    getSavedPostChecklist,
+    deleteSavedPost,
+    updateCheck
+} from "./API";
 
 const OutfitChecklist = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
 
-    const [user] = useState({
-        username: "b1",
-    });
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [post, setPost] = useState(null);
+    const [checklist, setChecklist] = useState([]);
 
-    const [profile] = useState({
-        profilePicture:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    });
+    useEffect(() => {
+        const fetchData = async () => {
+            // Check authentication
+            const { success: authSuccess, data: userData } = await getMe();
+            if (!authSuccess) {
+                navigate('/login');
+                return;
+            }
+            setUser(userData);
 
-    const [savedPosts, setSavedPosts] = useState([
-        {
-            savedPostId: "U1P2",
-            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            title: "Denim Style",
-            tag: "Casual",
-            userId: 1,
-        },
-        {
-            savedPostId: "U2P2",
-            image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            title: "Evening Elegance",
-            tag: "Formal",
-            userId: 3,
-        },
-    ]);
+            // Fetch saved post data
+            try {
+                const [imageRes, titleRes, tagRes, checklistRes] = await Promise.all([
+                    getSavedPostImage(id),
+                    getSavedPostTitle(id),
+                    getSavedPostTag(id),
+                    getSavedPostChecklist(id)
+                ]);
 
-    const [checklist, setChecklist] = useState([
-        {
-            savedCheckId: "U1C4",
-            brand: "ehehe",
-            clothe: "ahaha",
-            completed: false,
-            savedPostId: "U1P2",
-        },
-        {
-            savedCheckId: "U1C5",
-            brand: "RRR",
-            clothe: "TTT",
-            completed: false,
-            savedPostId: "U1P2",
-        },
-        {
-            savedCheckId: "U1C6",
-            brand: "VVV",
-            clothe: "BBB",
-            completed: false,
-            savedPostId: "U1P2",
-        },
-    ]);
+                if (imageRes.success && titleRes.success && tagRes.success) {
+                    setPost({
+                        savedPostId: id,
+                        image: imageRes.data,
+                        title: titleRes.data,
+                        tag: tagRes.data,
+                        userId: userData.id
+                    });
 
-    const toggleSavePost = (postId) => {
-        setSavedPosts((prev) => {
-            const exists = prev.find((p) => p.savedPostId === postId);
-            return exists
-                ? prev.filter((p) => p.savedPostId !== postId)
-                : [
-                    ...prev,
-                    {
-                        savedPostId: postId,
-                        originalPost: 0,
-                        image: "https://via.placeholder.com/800x400",
-                        title: "New Saved Post",
-                        tag: "New",
-                        userId: 1,
-                    },
-                ];
-        });
+                    if (checklistRes.success) {
+                        setChecklist(checklistRes.data || []);
+                    }
+                } else {
+                    // Post not found or error
+                    setPost(null);
+                }
+            } catch (error) {
+                console.error("Error fetching saved post:", error);
+                setPost(null);
+            }
+
+            setLoading(false);
+        };
+
+        fetchData();
+    }, [id, navigate]);
+
+    const toggleCheckItem = async (item) => {
+        try {
+            const { success } = await updateCheck({
+                savedCheckId: item.savedCheckId,
+                completed: !item.completed
+            });
+
+            if (success) {
+                setChecklist(prev =>
+                    prev.map(it =>
+                        it.savedCheckId === item.savedCheckId
+                            ? { ...it, completed: !it.completed }
+                            : it
+                    )
+                );
+            }
+        } catch (error) {
+            console.error("Error updating check item:", error);
+        }
     };
 
-    const post = savedPosts.find((p) => p.savedPostId === id);
-    const checklistItems = checklist.filter((item) => item.savedPostId === id);
+    const removeSavedPost = async () => {
+        if (!window.confirm("Are you sure you want to remove this post from your collection?")) {
+            return;
+        }
 
-    if (!id || !post) return <p className="text-center text-gray-500 my-10">Invalid outfit ID</p>;
+        try {
+            const { success } = await deleteSavedPost({ savedPostId: id });
+            if (success) {
+                navigate('/mycollection');
+            } else {
+                alert("Failed to remove post from collection");
+            }
+        } catch (error) {
+            console.error("Error removing saved post:", error);
+            alert("An error occurred while removing the post");
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="text-center py-10">
+                <p>Loading outfit details...</p>
+            </div>
+        );
+    }
+
+    if (!post) {
+        return (
+            <div className="text-center text-gray-500 my-10">
+                <p>Invalid outfit ID or this outfit is no longer available.</p>
+                <button
+                    onClick={() => navigate('/mycollection')}
+                    className="mt-4 px-4 py-2 bg-black text-white rounded text-sm"
+                >
+                    Return to My Collection
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-[1200px] mx-auto px-5 my-10 grid gap-12 grid-cols-1 lg:grid-cols-2">
@@ -88,7 +136,7 @@ const OutfitChecklist = () => {
                 <div className="flex items-center gap-4 mb-6">
                     <img
                         className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
-                        src={profile.profilePicture}
+                        src={user.profilePicture || "https://via.placeholder.com/100"}
                         alt="User Avatar"
                     />
                     <div>
@@ -106,46 +154,29 @@ const OutfitChecklist = () => {
 
                 <div className="mb-6">
                     <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            toggleSavePost(id);
-                        }}
-                        className={`px-6 py-3 rounded text-sm uppercase tracking-widest font-normal transition-all duration-300 ${
-                            savedPosts.find((p) => p.savedPostId === id)
-                                ? "bg-red-500 text-white"
-                                : "bg-black text-white"
-                        }`}
+                        onClick={removeSavedPost}
+                        className="px-6 py-3 rounded text-sm uppercase tracking-widest font-normal transition-all duration-300 bg-red-500 text-white hover:bg-red-600"
                     >
-                        {savedPosts.find((p) => p.savedPostId === id)
-                            ? "Remove from Collection"
-                            : "Save to Collection"}
+                        Remove from Collection
                     </button>
                 </div>
 
                 <div className="border-t border-gray-200 pt-6">
                     <h2 className="font-bodoni text-2xl font-normal mb-4">Items in this Look</h2>
-                    {checklistItems.length > 0 ? (
+                    {checklist.length > 0 ? (
                         <ul className="flex flex-col gap-4">
-                            {checklistItems.map((item, index) => (
+                            {checklist.map((item) => (
                                 <li
-                                    key={index}
-                                    className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg"
+                                    key={item.savedCheckId}
+                                    className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg transition-all duration-200 hover:border-gray-300"
                                 >
                                     <input
                                         type="checkbox"
                                         checked={item.completed}
-                                        onChange={() =>
-                                            setChecklist((prev) =>
-                                                prev.map((it) =>
-                                                    it.savedCheckId === item.savedCheckId
-                                                        ? { ...it, completed: !it.completed }
-                                                        : it
-                                                )
-                                            )
-                                        }
+                                        onChange={() => toggleCheckItem(item)}
                                         className="w-4 h-4 mt-3 accent-black"
                                     />
-                                    <div>
+                                    <div className={item.completed ? "line-through text-gray-400" : ""}>
                                         <div className="font-medium text-base">{item.brand}</div>
                                         <div className="text-gray-600 text-sm">{item.clothe}</div>
                                     </div>
@@ -153,7 +184,7 @@ const OutfitChecklist = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-500 text-sm">No CheckList.</p>
+                        <p className="text-gray-500 text-sm">No items in this checklist.</p>
                     )}
                 </div>
             </div>

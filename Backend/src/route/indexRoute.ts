@@ -1,16 +1,19 @@
-import { Hono } from "hono"
-import { userRouter } from "./userRoute.js";
-import { postRouter } from "./postRoute.js";
-import { checkRouter } from "./checkRoute.js";
-import { savedPostRouter } from "./savedPostRoute.js";
-import { savedCheckRouter } from "./savedCheckRoute.js";
+import { Hono } from 'hono'
+import { authRoute }      from './auth.js'
+import { userRoute }      from './userRoute.js'
+import { postRoute }      from './postRoute.js'
+import { checkRoute }     from './checkRoute.js'
+import { savedPostRouter } from './savedPostRoute.js'
+import { savedCheckRoute }from './savedCheckRoute.js'
 
-const mainRouter = new Hono()
+export const mainRouter = new Hono()
 
-mainRouter.route('/user', userRouter)
-mainRouter.route('/post', postRouter)
-mainRouter.route('/check', checkRouter)
-mainRouter.route('/savedPost', savedPostRouter)
-mainRouter.route('/savedCheck', savedCheckRouter)
+// Public routes - don't require authentication
+mainRouter.route('/auth', authRoute)
 
-export { mainRouter }
+// API routes - authentication is handled at the individual route level
+mainRouter.route('/user',       userRoute)
+mainRouter.route('/post',       postRoute)
+mainRouter.route('/check',      checkRoute)
+mainRouter.route('/savedPost',  savedPostRouter)
+mainRouter.route('/savedCheck', savedCheckRoute)
