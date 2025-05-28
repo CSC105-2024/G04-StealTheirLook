@@ -49,7 +49,7 @@ const Register = () => {
                 }}
             />
             <div className="absolute top-0 w-full text-center py-5 bg-white shadow z-10">
-                <h1 className="text-xl font-bold tracking-wide">STEAL HIS LOOK</h1>
+                <h1 className="text-xl font-bold tracking-wide">STEAL THEIR LOOK</h1>
             </div>
 
             <div className="z-10 w-full mx-8 max-w-md p-10 bg-white rounded-lg shadow-lg">

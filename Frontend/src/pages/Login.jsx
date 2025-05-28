@@ -57,7 +57,7 @@ const Login = () => {
                 }}
             />
             <div className="absolute top-0 left-0 w-full bg-white shadow z-10 py-4 text-center font-bold tracking-wider text-xl">
-                STEAL HIS LOOK
+                STEAL THEIR LOOK
             </div>
 
             <div className="relative z-10 bg-white rounded-lg shadow-xl px-10 py-12 w-full max-w-md mx-10">

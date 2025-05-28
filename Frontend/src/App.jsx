@@ -67,7 +67,7 @@ function App() {
                 <nav className="flex justify-center lg:justify-between items-center px-[5%] py-5 border-b border-[#eee] sticky top-0 bg-white z-[100] shadow-[0_2px_10px_rgba(0,0,0,0.03)] gap-10">
                     <div className="w-[content-max]">
                         <NavLink to="/" className="font-serif text-2xl uppercase">
-                            steal his look
+                            steal their look
                         </NavLink>
                     </div>
 
@@ -189,7 +189,7 @@ function App() {
 
             {!isAuthPage && (
                 <footer className="p-4 text-center text-gray-500 text-sm">
-                    © {new Date().getFullYear()} Steal His Look
+                    © {new Date().getFullYear()} Steal their Look
                 </footer>
             )}
         </>
